@@ -54,6 +54,10 @@ El Implante, edita con La Mutación y anímala con La Órbita… sin descargar n
 - Ejecuta. Los resultados aparecen en el panel con su botón **«Enviar a…»**.
 - **⌬ Ver nodos** muestra el workflow de ComfyUI que hay debajo; **⇩ Exportar JSON** lo guarda.
 
+**Tus LoRAs en El Implante:** pon tus LoRAs de Z-Image en `ComfyUI/models/loras` (vale cualquier subcarpeta) y recarga.
+El panel solo enseña los de Z-Image, y si un LoRA trae su palabra clave, la añade sola a la descripción al elegirlo.
+Los LoRAs que vienen de serie son del autor: si no los tienes, el panel te pide que elijas uno de los tuyos.
+
 Los workflows también aparecen en el navegador de plantillas de ComfyUI, en la sección *neural_underground*.
 
 ## Licencias

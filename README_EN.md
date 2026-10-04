@@ -54,6 +54,10 @@ the Implant, edit it with the Mutation and animate it with the Orbit… without 
 - Run it. Results show up in the panel with their **"Enviar a…"** button.
 - **⌬ Ver nodos** shows the ComfyUI workflow underneath; **⇩ Exportar JSON** saves it.
 
+**Your own LoRAs in the Implant:** put your Z-Image LoRAs in `ComfyUI/models/loras` (any subfolder works) and reload.
+The panel only lists Z-Image LoRAs, and if a LoRA carries its trigger word, it adds it to the description when you pick it.
+The default LoRAs belong to the author: if you don't have them, the panel asks you to pick one of yours.
+
 The workflows also show up in ComfyUI's template browser, under *neural_underground*.
 
 ## Licenses

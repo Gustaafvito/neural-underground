@@ -76,3 +76,4 @@ body:has(#nu-app:not([hidden])) #nu-launch,body:has(#nu-app:not([hidden])) #cm-d
 .nu-note{max-width:1700px;margin-left:auto;margin-right:auto}
 .nu-result audio{display:block;width:100%;margin:10px 0 4px;accent-color:var(--nu-accent);filter:hue-rotate(140deg) saturate(.8)}
 .nu-result-area details.nu-full{position:fixed;inset:0;z-index:100000;background:#05090cf2;padding:18px 24px;margin:0;overflow:auto}.nu-result-area details.nu-full>summary{display:none}.nu-result-area details.nu-full .nu-compare{height:calc(100vh - 150px)}.nu-result-area details.nu-full .nu-form-row select{max-width:none;flex:1}
+.nu-result-area details.nu-full .nu-full-btn{position:fixed;top:16px;right:24px;z-index:3;font-size:14px!important;padding:10px 16px!important;background:#6ef3cf!important;color:#07211c!important;font-weight:700}

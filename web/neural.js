@@ -14,7 +14,7 @@ const storageKey = 'neural-underground-session-v1';
 const outputLabels = {'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform'}};
 const busyInputs = new Set();
 // ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
-let ziLoras = null, ziLoading = false;
+let ziLoras = null, ziLoading = false, ziAviso = false;
 async function loadZiLoras(){if(ziLoading)return;ziLoading=true;try{ziLoras=await (await api.fetchApi('/neural_underground/loras_zimage')).json();}catch{ziLoras={};}finally{ziLoading=false;}}
 const loraBase = v => String(v||'').replaceAll('\\','/').split('/').pop();
 const loraLabel = v => loraBase(v).replace(/\.safetensors$/i,'');
@@ -168,7 +168,8 @@ function control(c) {
     if(!list.includes(w.value))field.append(el('option',{value:w.value},`${loraLabel(w.value)} · no disponible`));
     for(const v of list){const t=loraTrigger(v);field.append(el('option',{value:v},t?`${loraLabel(v)} · palabra clave: ${t}`:loraLabel(v)));}
     field.value=w.value;
-    field.addEventListener('change',()=>{const old=w.value;apply(field.value);if(getNode(c.nodes[0])?.mode!==4)swapTrigger(old,field.value);renderModule();});
+    // elegir un LoRA activa ese implante (si estaba apagado) y pone su palabra clave
+    field.addEventListener('change',()=>{const old=w.value,n=getNode(c.nodes[0]),off=n?.mode===4;ziAviso=false;apply(field.value);if(n)n.mode=0;swapTrigger(off?null:old,field.value);renderModule();});
     if(ziLoras&&!list.length)wrap.append(el('small',{},'No encuentro LoRAs de Z-Image en models/loras.'));
   }else if(opts){field=el('select');if(!opts.includes(w.value)){field.append(el('option',{value:w.value},`${w.value} · no disponible`));}
     for(const v of opts)field.append(el('option',{value:v},v));field.value=w.value;field.addEventListener('change',()=>apply(field.value));
@@ -208,6 +209,14 @@ function moduleTools(parent,m){
   const bar=el('div',{class:'nu-presets'});
   if(m.id==='el_implante'){
     if(ziLoras===null){loadZiLoras().then(()=>{if(current?.id==='el_implante')renderModule();});}
+    else{ // LoRAs de serie que no existen en este PC: se cambia por uno de Z-Image que sí tenga, con el implante apagado
+      const mine=Object.keys(ziLoras);let fixed=0;
+      [13,14].forEach((id,k)=>{const n=getNode(id),w=widget(id,'lora_name');if(!n||!w||ziLoras[w.value])return;
+        const alt=mine[k]||mine[0];if(alt)setWidget(id,'lora_name',alt);n.mode=4;fixed++;});
+      if(fixed){remember();ziAviso=true;}
+      if(!mine.length)bar.append(el('div',{class:'nu-note'},'No tienes LoRAs de Z-Image en models/loras: El Implante genera con Z-Image Turbo sin LoRA. Pon tus LoRAs de Z-Image en esa carpeta (vale cualquier subcarpeta) y recarga.'));
+      else if(ziAviso)bar.append(el('div',{class:'nu-note'},'Los LoRAs de serie no están en tu PC: elige uno de tus LoRAs de Z-Image en cada implante y se activará solo.'));
+    }
     for(const [id,label] of [[13,'Implante A'],[14,'Implante B']]){const n=getNode(id);if(!n)continue;const on=el('input',{type:'checkbox'});on.checked=n.mode!==4;
       on.onchange=()=>{n.mode=on.checked?0:4;n.setDirtyCanvas?.(true,true);const lora=widget(id,'lora_name')?.value;if(on.checked)swapTrigger(null,lora);else swapTrigger(lora,null);remember();renderModule();};
       bar.append(el('label',{},on,` Activar ${label}`));}
@@ -419,9 +428,9 @@ function renderResults() {
       slider.addEventListener('input',()=>divide(Number(slider.value)));a.onchange=()=>one.src=options[a.value].url;b.onchange=()=>two.src=options[b.value].url;
       one.draggable=false;two.draggable=false;
       // ⛶ comparador a pantalla completa (Esc o el mismo botón para volver)
-      const big=btn('⛶ Ampliar',()=>full(!detail.classList.contains('nu-full')));
+      const big=btn('⛶ Ampliar',()=>full(!detail.classList.contains('nu-full')));big.classList.add('nu-full-btn');
       const esc=e=>{if(e.key==='Escape')full(false);};
-      const full=on=>{detail.classList.toggle('nu-full',on);big.textContent=on?'✕ Salir de pantalla completa':'⛶ Ampliar';if(on){detail.open=true;document.addEventListener('keydown',esc);}else document.removeEventListener('keydown',esc);};
+      const full=on=>{detail.classList.toggle('nu-full',on);big.textContent=on?'✕ Cerrar (Esc)':'⛶ Ampliar';if(on){detail.open=true;document.addEventListener('keydown',esc);}else document.removeEventListener('keydown',esc);};
       detail.append(el('div',{class:'nu-form-row'},a,b,big),slider,box,el('small',{},'Arrastra sobre la imagen o usa la barra superior. Las imágenes se muestran completas, sin recortar.'));area.append(detail);}
   }
   const grid=el('div',{class:'nu-results'});
