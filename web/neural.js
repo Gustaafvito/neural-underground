@@ -389,7 +389,11 @@ function renderResults() {
       box.addEventListener('pointerup',release);box.addEventListener('pointercancel',release);
       slider.addEventListener('input',()=>divide(Number(slider.value)));a.onchange=()=>one.src=options[a.value].url;b.onchange=()=>two.src=options[b.value].url;
       one.draggable=false;two.draggable=false;
-      detail.append(el('div',{class:'nu-form-row'},a,b),slider,box,el('small',{},'Arrastra sobre la imagen o usa la barra superior. Las imágenes se muestran completas, sin recortar.'));area.append(detail);}
+      // ⛶ comparador a pantalla completa (Esc o el mismo botón para volver)
+      const big=btn('⛶ Ampliar',()=>full(!detail.classList.contains('nu-full')));
+      const esc=e=>{if(e.key==='Escape')full(false);};
+      const full=on=>{detail.classList.toggle('nu-full',on);big.textContent=on?'✕ Salir de pantalla completa':'⛶ Ampliar';if(on){detail.open=true;document.addEventListener('keydown',esc);}else document.removeEventListener('keydown',esc);};
+      detail.append(el('div',{class:'nu-form-row'},a,b,big),slider,box,el('small',{},'Arrastra sobre la imagen o usa la barra superior. Las imágenes se muestran completas, sin recortar.'));area.append(detail);}
   }
   const grid=el('div',{class:'nu-results'});
   let group=null;
