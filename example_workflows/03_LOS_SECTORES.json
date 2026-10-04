@@ -78,14 +78,14 @@
         "Node name for S&R": "LoraLoaderModelOnly",
         "models": [
           {
-            "name": "Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors",
-            "url": "https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning/resolve/main/Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors",
+            "name": "Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors",
+            "url": "https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning/resolve/main/Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors",
             "directory": "loras"
           }
         ]
       },
       "widgets_values": [
-        "Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors",
+        "Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors",
         1.0
       ],
       "title": "1b · Lightning 4 pasos"
@@ -589,7 +589,7 @@
       "widgets_values": [
         42,
         "fixed",
-        4,
+        8,
         1,
         "euler",
         "simple",

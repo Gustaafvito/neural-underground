@@ -222,7 +222,30 @@
       "loraTriggers": {
         "EtherialGothicZBase.safetensors": "EtherialGothicZBase",
         "DarkestDnDZBase_000004000.safetensors": "DarkestDnDZBase"
-      }
+      },
+      "sorpresas": [
+        {
+          "6:text": "cinematic film noir photo of a detective in a trench coat under a flickering neon sign, rain-soaked street at night, hard shadows, cigarette smoke, 35mm grain"
+        },
+        {
+          "6:text": "portrait of a cyborg street samurai with a cracked chrome mask, wet asphalt reflections, teal and magenta neon, shallow depth of field"
+        },
+        {
+          "6:text": "a lonely diner at 3am on an empty highway, warm interior light, a waitress looking out of the window, fog outside, cinematic wide shot"
+        },
+        {
+          "6:text": "an old lighthouse keeper reading by an oil lamp during a storm, waves crashing against the windows, moody chiaroscuro lighting"
+        },
+        {
+          "6:text": "close-up of a woman with silver freckles and holographic eyeliner, soft studio light, ultra detailed skin texture"
+        },
+        {
+          "6:text": "abandoned subway station overtaken by glowing bioluminescent plants, dust in the light beams, quiet and eerie"
+        },
+        {
+          "6:text": "a street food vendor in a crowded night market, steam rising from the pots, paper lanterns, vivid colors, candid photo"
+        }
+      ]
     },
     {
       "id": "los_sectores",
@@ -230,7 +253,7 @@
       "title": "Los Sectores",
       "subtitle": "Composición izquierda / derecha · Qwen Image 2512",
       "description": "Describe la escena general y qué va en cada mitad. Qwen Image 2512 entiende la posición dentro del propio prompt, sin dividir el lienzo en regiones rígidas.",
-      "risk": "Qwen Image 2512 · 4 pasos con Lightning. Funciona mejor en horizontal. Si un elemento se cruza de lado, sé más explícito en la descripción del sector.",
+      "risk": "Qwen Image 2512 · 8 pasos con Lightning (mínimo 8 para buena calidad). Funciona mejor en horizontal. Si un elemento se cruza de lado, sé más explícito en la descripción del sector.",
       "source": "07_regional_prompting.json",
       "file": "03_LOS_SECTORES.json",
       "controls": [
@@ -303,8 +326,8 @@
           ],
           "widget": "steps",
           "kind": null,
-          "help": "",
-          "advanced": true,
+          "help": "Mínimo 8 (el LoRA Lightning está entrenado para 8 pasos).",
+          "advanced": false,
           "min": 8,
           "max": 50
         }
@@ -315,7 +338,7 @@
       ],
       "models": [
         "qwen_image_2512_fp8_e4m3fn.safetensors",
-        "Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors",
+        "Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors",
         "qwen_2.5_vl_7b_fp8_scaled.safetensors",
         "qwen_image_vae.safetensors"
       ],
@@ -336,7 +359,44 @@
       "providers": [
         "comfy-core"
       ],
-      "version": "2.2.0"
+      "version": "2.2.0",
+      "sorpresas": [
+        {
+          "10:value": "A wide cinematic photo of an abandoned greenhouse at dusk, broken glass roof, overgrown plants, warm low sunlight",
+          "11:value": "an old beekeeper in a worn olive jacket holding a smoking bee smoker, bees floating around him",
+          "12:value": "a tall pale figure in a black hooded robe standing perfectly still between the plants, face hidden in shadow"
+        },
+        {
+          "10:value": "A wide photo of a rainy neon-lit alley at night, two figures facing each other",
+          "11:value": "a tall android woman with a glowing teal visor and a long black coat",
+          "12:value": "an old street vendor behind a cart full of flickering magenta holograms"
+        },
+        {
+          "10:value": "A cozy old library at night lit by green desk lamps, wide shot",
+          "11:value": "a young woman asleep on an open book, a cat curled on her lap",
+          "12:value": "a ghostly translucent librarian floating between the shelves, holding a candle"
+        },
+        {
+          "10:value": "A desert highway at sunset, heat haze, wide cinematic shot",
+          "11:value": "a vintage red convertible with its hood open, smoke coming out",
+          "12:value": "a lone hitchhiker in a white suit holding a sign that says NOWHERE"
+        },
+        {
+          "10:value": "A snowy mountain cabin interior with a crackling fireplace, warm light, wide shot",
+          "11:value": "an old man in a wool sweater playing chess alone",
+          "12:value": "a large grey wolf sitting calmly by the fire like a guest"
+        },
+        {
+          "10:value": "A futuristic laboratory with white walls and blue light, wide shot",
+          "11:value": "a scientist in a lab coat staring at a floating holographic brain",
+          "12:value": "a glass tank with a sleeping humanoid robot inside, cables attached"
+        },
+        {
+          "10:value": "A busy Tokyo crossing at night in the rain, wide street photography shot",
+          "11:value": "a girl with a transparent umbrella and a yellow raincoat",
+          "12:value": "a businessman in a dark suit whose reflection in the puddle is a fox"
+        }
+      ]
     },
     {
       "id": "la_fuga",
@@ -479,7 +539,30 @@
       "providers": [
         "comfy-core"
       ],
-      "version": "2.2.0"
+      "version": "2.2.0",
+      "sorpresas": [
+        {
+          "23:value": "the same scene continues naturally: more of the street, buildings and sky, same lighting and style"
+        },
+        {
+          "23:value": "a vast misty landscape with distant mountains and soft morning light"
+        },
+        {
+          "23:value": "a huge futuristic city skyline glowing with neon signs at night"
+        },
+        {
+          "23:value": "a dense dark forest with tall pine trees and fog between the trunks"
+        },
+        {
+          "23:value": "a wide beach at sunset with gentle waves and seagulls in the sky"
+        },
+        {
+          "23:value": "an endless field of sunflowers under a dramatic cloudy sky"
+        },
+        {
+          "23:value": "the interior of a grand abandoned ballroom with chandeliers and broken windows"
+        }
+      ]
     },
     {
       "id": "el_aislante",
@@ -623,7 +706,33 @@
       "providers": [
         "comfy-core"
       ],
-      "version": "2.2.0"
+      "version": "2.2.0",
+      "sorpresas": [
+        {
+          "2:prompt": "Turn the scene into night time with moody moonlight and practical lights. Keep the subject, face, pose and composition unchanged."
+        },
+        {
+          "2:prompt": "Turn the scene into a rainy cyberpunk night: neon reflections on wet surfaces, teal and magenta lights, keep the subject's face, pose and clothing unchanged."
+        },
+        {
+          "2:prompt": "Make it a snowy winter day, snow on the ground and falling snowflakes. Keep everything else unchanged."
+        },
+        {
+          "2:prompt": "Redraw the whole image as a bold comic book illustration with ink outlines and halftone shading. Keep the composition."
+        },
+        {
+          "2:prompt": "Turn the image into a 1970s faded film photograph with warm colors, grain and light leaks. Keep everything else unchanged."
+        },
+        {
+          "2:prompt": "Make the subject wear a futuristic black armored suit with glowing blue lines. Keep the face, pose and background unchanged."
+        },
+        {
+          "2:prompt": "Turn the scene into an underwater world with floating particles, light rays and small fish. Keep the subject unchanged."
+        },
+        {
+          "2:prompt": "Transform the image into a Studio-style hand-painted anime frame with soft watercolor backgrounds. Keep the composition."
+        }
+      ]
     },
     {
       "id": "el_doble",
@@ -733,7 +842,27 @@
         "VAEDecode",
         "SaveImage"
       ],
-      "providers": []
+      "providers": [],
+      "sorpresas": [
+        {
+          "6:text": "portrait of an elderly fisherman with a weathered face and a yellow raincoat, harbor in the background, overcast light"
+        },
+        {
+          "6:text": "a glass of whiskey on a wooden bar counter, dramatic side light, bokeh lights in the background, product photography"
+        },
+        {
+          "6:text": "a red fox standing in fresh snow in a birch forest, morning sun, wildlife photography"
+        },
+        {
+          "6:text": "a futuristic motorcycle parked in a neon-lit garage, reflections on the glossy floor"
+        },
+        {
+          "6:text": "a bowl of ramen with steam rising, chopsticks, dark wooden table, top-down food photography"
+        },
+        {
+          "6:text": "an astronaut sitting on a bench in a quiet park, autumn leaves falling, cinematic"
+        }
+      ]
     },
     {
       "id": "el_puente",
@@ -847,6 +976,23 @@
       ],
       "providers": [
         "comfy-core"
+      ],
+      "sorpresas": [
+        {
+          "6:text": "The camera slowly moves forward as the first scene transforms smoothly into the second one, cinematic and fluid."
+        },
+        {
+          "6:text": "The subject turns around slowly while the lighting shifts from day to night, smooth continuous motion."
+        },
+        {
+          "6:text": "A gentle morph between both images, particles of light drifting through the scene, slow and dreamy."
+        },
+        {
+          "6:text": "The camera orbits around the subject while the environment changes seamlessly, cinematic transition."
+        },
+        {
+          "6:text": "The person walks towards the camera and the background dissolves into the second scene, natural motion."
+        }
       ]
     },
     {
@@ -968,6 +1114,32 @@
       ],
       "providers": [
         "comfy-core"
+      ],
+      "sorpresas": [
+        {
+          "107:text": "The character stands still while wind moves the hair and clothes, dust particles floating in the light.",
+          "108:camera_pose": "Zoom In"
+        },
+        {
+          "107:text": "The city lights flicker as rain starts falling, steam rising from the street.",
+          "108:camera_pose": "Pan Right"
+        },
+        {
+          "107:text": "The character slowly turns the head towards the camera and blinks, cinematic mood.",
+          "108:camera_pose": "Static"
+        },
+        {
+          "107:text": "Leaves swirl around the scene in a gentle breeze, warm sunset light.",
+          "108:camera_pose": "ClockWise (CW)"
+        },
+        {
+          "107:text": "Fog rolls in slowly while neon signs buzz and flicker in the background.",
+          "108:camera_pose": "Zoom Out"
+        },
+        {
+          "107:text": "Birds fly across the sky as the clouds move fast, epic landscape.",
+          "108:camera_pose": "Pan Up"
+        }
       ]
     },
     {
@@ -1292,6 +1464,36 @@
       ],
       "providers": [
         "comfy-core"
+      ],
+      "sorpresas": [
+        {
+          "94:tags": "dark synthwave, cyberpunk, 100 BPM, pulsing analog bass, gated drums, shimmering arpeggios, female vocals, melancholic, cinematic",
+          "94:lyrics": "[Verse]\nNeon rivers in the rain\nI keep running from my name\n[Chorus]\nWe are ghosts inside the machine\nGlowing louder than a dream"
+        },
+        {
+          "94:tags": "lo-fi hip hop, 80 BPM, dusty drums, mellow electric piano, vinyl crackle, relaxed, instrumental",
+          "94:lyrics": "[Instrumental]"
+        },
+        {
+          "94:tags": "alternative rock, 130 BPM, distorted guitars, driving drums, energetic male vocals, anthemic chorus",
+          "94:lyrics": "[Verse]\nWoke up in a burning town\nEvery bridge is falling down\n[Chorus]\nRaise your hands, we won't break\nHold the line for all our sake"
+        },
+        {
+          "94:tags": "flamenco pop, 110 BPM, spanish guitar, palmas, cajón, passionate female vocals, spanish lyrics",
+          "94:lyrics": "[Verse]\nBajo la luna de Madrid\nte busqué y no te vi\n[Chorus]\nBaila conmigo esta noche\nque el tiempo se quede aquí"
+        },
+        {
+          "94:tags": "epic orchestral trailer music, 90 BPM, huge drums, brass, choir, rising tension, instrumental",
+          "94:lyrics": "[Instrumental]"
+        },
+        {
+          "94:tags": "reggaeton, 95 BPM, dembow rhythm, deep 808, catchy synth lead, latin male vocals, party",
+          "94:lyrics": "[Verse]\nLa ciudad se enciende ya\nnadie se quiere ir pa' casa\n[Chorus]\nDale, dale, que suene más\nesta noche no se acaba"
+        },
+        {
+          "94:tags": "dark ambient horror soundtrack, 70 BPM, low drones, dissonant strings, music box, whispers, unsettling, instrumental",
+          "94:lyrics": "[Instrumental]"
+        }
       ]
     }
   ]

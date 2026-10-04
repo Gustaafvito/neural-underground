@@ -1,6 +1,6 @@
 # Modelos de Neural Underground
 
-Total sin repetir: **~183 GB**. No hace falta bajarlo todo: descarga solo los de los módulos que vayas a usar.
+Total sin repetir: **~182 GB**. No hace falta bajarlo todo: descarga solo los de los módulos que vayas a usar.
 
 Las subcarpetas dan igual: si tienes un modelo en `models/loras/ZImage/…`, el panel lo encuentra por su nombre.
 
@@ -32,7 +32,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 | Archivo | Carpeta (`ComfyUI/models/…`) | Tamaño | Descarga |
 |---|---|---|---|
 | `qwen_image_2512_fp8_e4m3fn.safetensors` | `diffusion_models` | 20.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors) |
-| `Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors` | `loras` | 1.7 GB | [⬇](https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning/resolve/main/Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors) |
+| `Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors` | `loras` | 0.8 GB | [⬇](https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning/resolve/main/Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors) |
 | `qwen_2.5_vl_7b_fp8_scaled.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors) |
 | `qwen_image_vae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors) |
 

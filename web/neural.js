@@ -207,6 +207,11 @@ function presetText(bar,label,nodeID,name,items){
 }
 function moduleTools(parent,m){
   const bar=el('div',{class:'nu-presets'});
+  // 🎲 Sorpréndeme: rellena los textos con una idea preparada (catalog.sorpresas) y cambia la semilla
+  if(m.sorpresas?.length)bar.append(btn('🎲 Sorpréndeme',()=>{let k;do{k=Math.floor(Math.random()*m.sorpresas.length);}while(m.sorpresas.length>1&&k===m._ultimaSorpresa);m._ultimaSorpresa=k;
+    try{for(const [key,value] of Object.entries(m.sorpresas[k])){const [id,w]=key.split(':');setWidget(Number(id),w,value);}
+      for(const c of m.controls)if(c.kind==='seed'){const a=new Uint32Array(1);crypto.getRandomValues(a);for(const id of c.nodes)setWidget(id,c.widget,a[0],c.fallbackIndex);}
+      remember();renderModule();message('Idea al azar cargada: revísala o ejecuta directamente.');}catch(e){message(e.message,true);}},'nu-surprise'));
   if(m.id==='el_implante'){
     if(ziLoras===null){loadZiLoras().then(()=>{if(current?.id==='el_implante')renderModule();});}
     else{ // LoRAs de serie que no existen en este PC: se cambia por uno de Z-Image que sí tenga, con el implante apagado
