@@ -13,6 +13,24 @@ const resultKey = item => JSON.stringify([item.promptID,item.node,item.file?.typ
 const storageKey = 'neural-underground-session-v1';
 const outputLabels = {'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform'}};
 const busyInputs = new Set();
+// ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
+let ziLoras = null, ziLoading = false;
+async function loadZiLoras(){if(ziLoading)return;ziLoading=true;try{ziLoras=await (await api.fetchApi('/neural_underground/loras_zimage')).json();}catch{ziLoras={};}finally{ziLoading=false;}}
+const loraBase = v => String(v||'').replaceAll('\\','/').split('/').pop();
+const loraLabel = v => loraBase(v).replace(/\.safetensors$/i,'');
+function loraTrigger(v){const known=(current?.loraTriggers||{})[loraBase(v)];return known||ziLoras?.[v]?.trigger||null;}
+function withTrigger(text,t,add){
+  text=String(text||'');if(!t)return text;
+  const esc=t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  text=text.replace(new RegExp(`^\\s*${esc}\\s*,?\\s*`,'i'),'').replace(new RegExp(`\\s*,\\s*${esc}(?=\\s*(,|$))`,'gi'),'');
+  return add?(text.trim()?`${t}, ${text.trim()}`:t):text.trim();
+}
+function swapTrigger(oldLora,newLora,descNode=6){
+  const w=widget(descNode,'text');if(!w)return;let text=w.value;
+  const a=loraTrigger(oldLora),b=loraTrigger(newLora);
+  if(a&&a!==b)text=withTrigger(text,a,false);if(b)text=withTrigger(text,b,true);
+  if(text!==w.value)setWidget(descNode,'text',text);
+}
 
 function el(tag, attrs = {}, ...children) {
   const e = document.createElement(tag);
@@ -144,6 +162,14 @@ function control(c) {
   const apply=value=>{try{for(const id of c.nodes)setWidget(id,c.widget,value,c.fallbackIndex);remember();refreshSummary();}catch(e){message(e.message,true);}};
   if(c.kind==='text' || w.type==='customtext' || w.type==='text' && c.widget==='text'){
     field=el('textarea',{rows:4});field.value=w.value??'';field.addEventListener('input',()=>apply(field.value));
+  }else if(opts&&c.filter==='zimage'){
+    // solo LoRAs de Z-Image, con nombre legible y su palabra clave; al cambiar, la palabra clave pasa a la descripción
+    const list=ziLoras?opts.filter(v=>ziLoras[v]):opts;field=el('select');
+    if(!list.includes(w.value))field.append(el('option',{value:w.value},`${loraLabel(w.value)} · no disponible`));
+    for(const v of list){const t=loraTrigger(v);field.append(el('option',{value:v},t?`${loraLabel(v)} · palabra clave: ${t}`:loraLabel(v)));}
+    field.value=w.value;
+    field.addEventListener('change',()=>{const old=w.value;apply(field.value);if(getNode(c.nodes[0])?.mode!==4)swapTrigger(old,field.value);renderModule();});
+    if(ziLoras&&!list.length)wrap.append(el('small',{},'No encuentro LoRAs de Z-Image en models/loras.'));
   }else if(opts){field=el('select');if(!opts.includes(w.value)){field.append(el('option',{value:w.value},`${w.value} · no disponible`));}
     for(const v of opts)field.append(el('option',{value:v},v));field.value=w.value;field.addEventListener('change',()=>apply(field.value));
   }else if(typeof w.value==='boolean'){field=el('input',{type:'checkbox'});field.checked=w.value;field.addEventListener('change',()=>apply(field.checked));
@@ -181,7 +207,10 @@ function presetText(bar,label,nodeID,name,items){
 function moduleTools(parent,m){
   const bar=el('div',{class:'nu-presets'});
   if(m.id==='el_implante'){
-    for(const [id,label] of [[13,'Implante A'],[14,'Implante B']]){const n=getNode(id);if(!n)continue;const on=el('input',{type:'checkbox'});on.checked=n.mode!==4;on.onchange=()=>{n.mode=on.checked?0:4;n.setDirtyCanvas?.(true,true);remember();};bar.append(el('label',{},on,` Activar ${label}`));}
+    if(ziLoras===null){loadZiLoras().then(()=>{if(current?.id==='el_implante')renderModule();});}
+    for(const [id,label] of [[13,'Implante A'],[14,'Implante B']]){const n=getNode(id);if(!n)continue;const on=el('input',{type:'checkbox'});on.checked=n.mode!==4;
+      on.onchange=()=>{n.mode=on.checked?0:4;n.setDirtyCanvas?.(true,true);const lora=widget(id,'lora_name')?.value;if(on.checked)swapTrigger(null,lora);else swapTrigger(lora,null);remember();renderModule();};
+      bar.append(el('label',{},on,` Activar ${label}`));}
     bar.append(btn('Mezcla suave',()=>{for(const id of [13,14])setWidget(id,'strength_model',0.5);remember();renderModule();}));
     bar.append(btn('Mezcla intensa',()=>{for(const id of [13,14])setWidget(id,'strength_model',0.9);remember();renderModule();}));
   }

@@ -79,7 +79,7 @@
       "title": "El Implante",
       "subtitle": "Combina dos LoRAs · Z-Image Turbo",
       "description": "Genera con Z-Image Turbo y mezcla hasta dos LoRAs de estilo (implantes). Puedes apagar cada implante sin quitarlo. Algunos LoRAs necesitan su palabra clave en la descripción.",
-      "risk": "Los LoRAs pueden competir: empieza con intensidades de 0,5–0,8. Palabras clave: EtherialGothicZBase, DarkestDnDZBase, MIDJ_Z_IMAGE_BASE, «Pixel art style.».",
+      "risk": "Los LoRAs pueden competir: empieza con intensidades de 0,5–0,8. La lista solo muestra LoRAs de Z-Image y la palabra clave de cada uno se añade sola a la descripción (y se quita al cambiarlo o apagarlo).",
       "source": "10_varias_loras.json",
       "file": "02_EL_IMPLANTE.json",
       "controls": [
@@ -100,8 +100,9 @@
           ],
           "widget": "lora_name",
           "kind": null,
-          "help": "",
-          "advanced": false
+          "help": "Solo LoRAs de Z-Image. Si tiene palabra clave, se añade sola a la descripción.",
+          "advanced": false,
+          "filter": "zimage"
         },
         {
           "label": "Intensidad A",
@@ -110,7 +111,7 @@
           ],
           "widget": "strength_model",
           "kind": null,
-          "help": "",
+          "help": "0,5–0,9 normalmente. DetailDaemon va al revés: en negativo añade detalle.",
           "advanced": false,
           "min": -2,
           "max": 2,
@@ -123,8 +124,9 @@
           ],
           "widget": "lora_name",
           "kind": null,
-          "help": "",
-          "advanced": false
+          "help": "Solo LoRAs de Z-Image. Si tiene palabra clave, se añade sola a la descripción.",
+          "advanced": false,
+          "filter": "zimage"
         },
         {
           "label": "Intensidad B",
@@ -133,7 +135,7 @@
           ],
           "widget": "strength_model",
           "kind": null,
-          "help": "",
+          "help": "0,5–0,9 normalmente. DetailDaemon va al revés: en negativo añade detalle.",
           "advanced": false,
           "min": -2,
           "max": 2,
@@ -216,7 +218,11 @@
         "VAEDecode",
         "SaveImage"
       ],
-      "providers": []
+      "providers": [],
+      "loraTriggers": {
+        "EtherialGothicZBase.safetensors": "EtherialGothicZBase",
+        "DarkestDnDZBase_000004000.safetensors": "DarkestDnDZBase"
+      }
     },
     {
       "id": "los_sectores",
