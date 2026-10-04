@@ -472,8 +472,11 @@ app.registerExtension({
   async setup(){
     document.head.append(el('link',{rel:'stylesheet',href:new URL('neural.css',BASE)}));
     document.body.append(el('button',{id:'nu-launch',type:'button',onclick:launch},'◈ NEURAL'));
+    // viendo los nodos de un módulo: botón para volver a él (como «Volver a la habitación» en La Casa Maldita)
+    const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:launch});document.body.append(back);
+    setInterval(()=>{const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
     events();
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
   },
   async afterConfigureGraph(){if(opening||!catalog)return;const m=findModule(graphID());if(m){current=m;if(root&&!root.hidden)renderModule();}else{current=null;if(root&&!root.hidden)renderHome();}}
 });
