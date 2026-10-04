@@ -52,7 +52,7 @@ the Implant, edit it with the Mutation and animate it with the Orbit… without 
 - Press the **◈ NEURAL** button to open **El Nexo** (the hub), the screen with the 12 modules.
 - Pick a module, upload your image or video and adjust its controls (prompts work best in English).
 - Run it. Results show up in the panel with their **"Enviar a…"** button.
-- **⌬ Ver nodos** shows the ComfyUI workflow underneath; **⇩ Exportar JSON** saves it.
+- **⌬ Ver nodos** shows the ComfyUI workflow underneath; to come back, press **◈ Volver a …** (bottom centre).
 
 **Your own LoRAs in the Implant:** put your Z-Image LoRAs in `ComfyUI/models/loras` (any subfolder works) and reload.
 The panel only lists Z-Image LoRAs, and if a LoRA carries its trigger word, it adds it to the description when you pick it.

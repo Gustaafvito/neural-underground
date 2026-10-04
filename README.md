@@ -52,7 +52,7 @@ El Implante, edita con La Mutación y anímala con La Órbita… sin descargar n
 - Pulsa el botón **◈ NEURAL** para abrir **El Nexo**, la pantalla con los 12 módulos.
 - Elige un módulo, sube tu imagen o tu vídeo y ajusta sus controles (los prompts funcionan mejor en inglés).
 - Ejecuta. Los resultados aparecen en el panel con su botón **«Enviar a…»**.
-- **⌬ Ver nodos** muestra el workflow de ComfyUI que hay debajo; **⇩ Exportar JSON** lo guarda.
+- **⌬ Ver nodos** muestra el workflow de ComfyUI que hay debajo; para volver, pulsa **◈ Volver a …** (abajo en el centro).
 
 **Tus LoRAs en El Implante:** pon tus LoRAs de Z-Image en `ComfyUI/models/loras` (vale cualquier subcarpeta) y recarga.
 El panel solo enseña los de Z-Image, y si un LoRA trae su palabra clave, la añade sola a la descripción al elegirlo.

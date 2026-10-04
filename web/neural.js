@@ -107,7 +107,7 @@ function makeShell() {
   statusBar=el('footer',{class:'nu-status','aria-live':'polite'},progress,statusText,el('span',{class:'nu-ver'},'EDICIÓN 01 · BETA'));
   const home=()=>{remember();renderHome();};
   const top=el('header',{class:'nu-top'},el('div',{class:'nu-logo',title:'Volver a El Nexo',onclick:home},'◈ NEURAL',el('small',{},'UNDERGROUND')),
-    el('nav',{},btn('◈ El Nexo',home),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;}),btn('⇩ Exportar JSON',()=>{if(current&&graphID()===current.id){remember();jsonDownload(current.file,app.graph.serialize());}else message('Abre un módulo para exportarlo.',true);}),btn('↶ Grafo anterior',restoreExternal),btn('✕ Cerrar',()=>{remember();root.hidden=true;},'close')));
+    el('nav',{},btn('◈ El Nexo',home),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;})));
   root.append(el('div',{class:'nu-fx'}),el('div',{class:'nu-frame'},top,body,statusBar));
   document.body.append(root);
   window.addEventListener('resize',place);
