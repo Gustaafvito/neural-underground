@@ -79,3 +79,16 @@ body:has(#nu-app:not([hidden])) #nu-launch,body:has(#nu-app:not([hidden])) #cm-d
 .nu-result-area details.nu-full .nu-full-btn{position:fixed;top:16px;right:24px;z-index:3;font-size:14px!important;padding:10px 16px!important;background:#6ef3cf!important;color:#07211c!important;font-weight:700}
 #nu-back{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:99981;background:#0b1d20;color:#a0ffdf;border:1px solid #6ef3cf;border-radius:12px;padding:11px 20px;font:14px "Share Tech Mono",monospace;letter-spacing:.08em;box-shadow:0 8px 30px #0007,0 0 18px #6ef3cf55;cursor:pointer}#nu-back[hidden]{display:none}#nu-back:hover{box-shadow:0 8px 30px #0007,0 0 26px #6ef3cf99}
 .nu-presets .nu-surprise{background:linear-gradient(90deg,#1d4d44,#3b2a5c)!important;border-color:#6ef3cf!important;color:#eafff8!important;font-weight:700}
+.nu-cover{display:grid;grid-template-columns:minmax(220px,380px) minmax(0,1fr);gap:46px;align-items:center;min-height:calc(100vh - 230px);padding:28px 36px;cursor:pointer;outline:none;border-radius:14px;background:radial-gradient(ellipse at 30% 50%,#10292b 0%,#081014 70%)}
+.nu-cover-art{position:relative;border-radius:14px;overflow:hidden;border:1px solid #4ebd9e;box-shadow:0 0 0 1px #6ef3cf33,0 0 38px #6ef3cf44,0 20px 60px #000a;animation:nu-cover-in .6s ease-out}
+.nu-cover-art .nu-art{display:block;width:100%;height:auto;border-radius:0;border:0}
+.nu-cover-scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,#0000 0 3px,#6ef3cf0d 3px 4px);pointer-events:none;animation:nu-scan 6s linear infinite}
+.nu-cover-info h1{font-size:clamp(38px,5vw,64px);margin:6px 0 10px;text-shadow:0 0 18px #6ef3cf66}
+.nu-cover-info strong{display:block;color:#a0ffdf;font-size:17px;margin-bottom:14px}
+.nu-cover-info p{max-width:640px;color:var(--nu-muted);font-size:15px;line-height:1.6}
+.nu-cover-hint{margin-top:28px;font:13px "Share Tech Mono",monospace;letter-spacing:.18em;color:#6ef3cf;animation:nu-blink 1.6s ease-in-out infinite}
+.nu-cover:hover .nu-cover-art,.nu-cover:focus .nu-cover-art{box-shadow:0 0 0 1px #6ef3cf88,0 0 60px #6ef3cf77,0 20px 60px #000a}
+@keyframes nu-scan{from{background-position:0 0}to{background-position:0 120px}}
+@keyframes nu-blink{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes nu-cover-in{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@media (max-width:820px){.nu-cover{grid-template-columns:1fr;gap:22px;padding:18px}.nu-cover-art{max-width:320px}}

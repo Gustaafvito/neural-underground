@@ -15,6 +15,7 @@ const outputLabels = {'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Má
 const busyInputs = new Set();
 // ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
 let ziLoras = null, ziLoading = false, ziAviso = false;
+let coverMode = false;   // portada del módulo (como en La Casa Maldita): se ve al entrar desde El Nexo
 async function loadZiLoras(){if(ziLoading)return;ziLoading=true;try{ziLoras=await (await api.fetchApi('/neural_underground/loras_zimage')).json();}catch{ziLoras={};}finally{ziLoading=false;}}
 const loraBase = v => String(v||'').replaceAll('\\','/').split('/').pop();
 const loraLabel = v => loraBase(v).replace(/\.safetensors$/i,'');
@@ -104,10 +105,10 @@ function makeShell() {
   if(root)return;
   root=el('section',{id:'nu-app',role:'dialog','aria-label':'Neural Underground'});
   body=el('main',{class:'nu-body'});statusText=el('span',{},'El Nexo está listo.');progress=el('progress',{max:100,value:0});progress.hidden=true;
-  statusBar=el('footer',{class:'nu-status','aria-live':'polite'},progress,statusText,el('span',{class:'nu-ver'},'EDICIÓN 01 · BETA'));
+  statusBar=el('footer',{class:'nu-status','aria-live':'polite'},progress,statusText,el('span',{class:'nu-ver'},`VERSIÓN ${VERSION}`));
   const home=()=>{remember();renderHome();};
   const top=el('header',{class:'nu-top'},el('div',{class:'nu-logo',title:'Volver a El Nexo',onclick:home},'◈ NEURAL',el('small',{},'UNDERGROUND')),
-    el('nav',{},btn('◈ El Nexo',home),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;})));
+    el('nav',{},btn('◈ El Nexo',home),btn('▣ Portada',()=>{if(current){coverMode=true;renderModule();}else message('Abre un módulo para ver su portada.',true);}),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;})));
   root.append(el('div',{class:'nu-fx'}),el('div',{class:'nu-frame'},top,body,statusBar));
   document.body.append(root);
   window.addEventListener('resize',place);
@@ -121,7 +122,7 @@ function renderHome() {
   root.hidden=false;place();body.replaceChildren();
   body.append(el('div',{class:'nu-hero'},el('div',{class:'nu-eyebrow'},`EL NEXO · ${catalog.modules.length} ESPECIALISTAS`),el('h1',{},'NEURAL ',el('span',{},'UNDERGROUND')),el('p',{},'Tu laboratorio bajo la ciudad. Analiza, transforma y conecta tus resultados: elige un especialista para abrir sus herramientas.'),el('i',{class:'nu-line'})));
   const grid=el('div',{class:'nu-grid'});
-  for(const m of catalog.modules)grid.append(el('button',{class:'nu-card',type:'button',title:`Abrir ${m.title}`,onclick:()=>openModule(m)},el('div',{class:'nu-card-art'},art(m),el('span',{class:'nu-num'},String(m.index).padStart(2,'0'))),el('div',{class:'nu-card-copy'},el('div',{class:'nu-card-tag'},'Acceso al módulo'),el('h2',{},m.title),el('p',{},m.subtitle))));
+  for(const m of catalog.modules)grid.append(el('button',{class:'nu-card',type:'button',title:`Abrir ${m.title}`,onclick:()=>{coverMode=true;openModule(m);}},el('div',{class:'nu-card-art'},art(m),el('span',{class:'nu-num'},String(m.index).padStart(2,'0'))),el('div',{class:'nu-card-copy'},el('div',{class:'nu-card-tag'},'Acceso al módulo'),el('h2',{},m.title),el('p',{},m.subtitle))));
   body.append(grid,el('p',{class:'nu-note',style:{marginTop:'22px'}},'Los modelos se ejecutan en tu ComfyUI. Cada módulo comprueba sus nodos y modelos; el pack no instala ni descarga dependencias automáticamente.'));
   renderJobs(body);
 }
@@ -280,8 +281,17 @@ function refreshSummary(){
   else if((m.id==='la_mutacion'||m.id==='el_sastre')&&meta){const mp=Number(widget(25,'megapixels')?.value);box.append(`Referencia: ${meta.width}×${meta.height}. ${mp?'Se trabaja a ~'+mp+' megapíxeles conservando la proporción.':'Se conserva el tamaño original.'}`);}
   else{box.hidden=true;return;}box.hidden=false;
 }
+function renderCover(m){
+  const enter=()=>{coverMode=false;renderModule();};
+  const card=el('div',{class:'nu-cover',role:'button',tabindex:'0',title:`Entrar en ${m.title}`,onclick:enter,onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enter();}}},
+    el('div',{class:'nu-cover-art'},art(m),el('div',{class:'nu-cover-scan'})),
+    el('div',{class:'nu-cover-info'},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),
+      el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),el('div',{class:'nu-cover-hint'},'▶ pulsa para entrar')));
+  body.append(card);setTimeout(()=>card.focus(),0);
+}
 function renderModule() {
   if(!current)return;const m=current;body.replaceChildren();
+  if(coverMode){renderCover(m);return;}
   body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description))));
   const layout=el('div',{class:'nu-workspace'}),left=el('div',{class:'nu-controls'}),right=el('section',{class:'nu-result-area',id:'nu-result-area'});
   for(const i of m.inputs)left.append(uploadControl(i,m));
@@ -478,7 +488,7 @@ app.registerExtension({
     document.head.append(el('link',{rel:'stylesheet',href:new URL('neural.css',BASE)}));
     document.body.append(el('button',{id:'nu-launch',type:'button',onclick:launch},'◈ NEURAL'));
     // viendo los nodos de un módulo: botón para volver a él (como «Volver a la habitación» en La Casa Maldita)
-    const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:launch});document.body.append(back);
+    const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:()=>{coverMode=false;launch();}});document.body.append(back);
     setInterval(()=>{const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
     events();
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
