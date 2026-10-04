@@ -403,10 +403,13 @@ function renderResults() {
       if(current.id==='el_aislante')for(const [label,color]of [['Fondo claro','#fff'],['Fondo oscuro','#111']])actions.append(btn(label,()=>{visual.style.background=color;}));
       actions.append(el('a',{class:'nu-btn',href:url,download:item.file.filename,target:'_blank',rel:'noopener'},'Descargar'));
       const select=el('select',{'aria-label':'Enviar resultado a otro módulo'},el('option',{value:''},'Enviar a…'));
-      for(const m of catalog.modules)for(const [slot,i]of m.inputs.entries())if(i.kind===item.kind)select.append(el('option',{value:`${m.id}:${slot}`},`${m.title}${m.inputs.length>1?' · '+i.label:''}`));
+      // el propio módulo solo aparece donde repetir tiene sentido (editar otra vez, ampliar más…)
+      const again=['la_mutacion','la_fuga','el_sastre'].includes(current.id);
+      for(const m of catalog.modules){if(m.id===current.id&&!again)continue;
+        for(const [slot,i]of m.inputs.entries())if(i.kind===item.kind)select.append(el('option',{value:`${m.id}:${slot}`},m.id===current.id?`↻ otra vez aquí${m.inputs.length>1?' · '+i.label:''}`:`${m.title}${m.inputs.length>1?' · '+i.label:''}`));}
       select.onchange=()=>{if(!select.value)return;const [id,slot]=select.value.split(':');transfer(item,findModule(id),Number(slot));};if(select.options.length>1)actions.append(select);
     }
-    if(item.kind==='text'){const dest=el('select',{'aria-label':'Enviar descripción a un prompt'},el('option',{value:''},'Enviar texto a…'));for(const m of catalog.modules)if(m.controls.some(c=>c.kind==='text'&&!c.advanced))dest.append(el('option',{value:m.id},m.title));dest.onchange=()=>{if(dest.value)transfer(item,findModule(dest.value));};actions.append(dest);}
+    if(item.kind==='text'){const dest=el('select',{'aria-label':'Enviar descripción a un prompt'},el('option',{value:''},'Enviar texto a…'));for(const m of catalog.modules)if(m.id!==current.id&&m.controls.some(c=>c.kind==='text'&&!c.advanced))dest.append(el('option',{value:m.id},m.title));dest.onchange=()=>{if(dest.value)transfer(item,findModule(dest.value));};actions.append(dest);}
     actions.append(btn('Quitar resultado',()=>removeResultItems(moduleID,[item]),'danger'));
     card.append(actions);grid.append(card);
   }
