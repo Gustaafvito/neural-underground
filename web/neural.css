@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&display=swap");
+
+/* ── contenedor: ocupa la zona del lienzo (como La Casa Maldita) y deja ver la interfaz de ComfyUI ── */
+#nu-app{--nu-bg:#05090c;--nu-panel:#0d181e;--nu-line:#1f3a40;--nu-text:#e8f4f1;--nu-muted:#94acb0;--nu-accent:#6ef3cf;--nu-accent2:#ff3d8b;--nu-title:"Orbitron",system-ui,sans-serif;--nu-mono:"Share Tech Mono",ui-monospace,monospace;
+  position:fixed;inset:0;z-index:1000;color:var(--nu-text);font:14px/1.5 system-ui,sans-serif;isolation:isolate;user-select:none;
+  background:radial-gradient(ellipse at 50% 40%,#0f2a2c 0%,transparent 65%),var(--nu-bg)}
+#nu-app *{box-sizing:border-box}#nu-app button,#nu-app input,#nu-app select,#nu-app textarea{font:inherit}#nu-app button{cursor:pointer}#nu-app button:disabled{opacity:.45;cursor:not-allowed}#nu-app :focus-visible{outline:2px solid var(--nu-accent);outline-offset:3px}#nu-app button,#nu-app a{touch-action:manipulation}#nu-app a{color:var(--nu-accent)}
+#nu-app input,#nu-app textarea,#nu-app pre{user-select:text}
+.nu-fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.nu-fx::before{content:"";position:absolute;inset:-50%;background-image:linear-gradient(#6ef3cf10 1px,transparent 1px),linear-gradient(90deg,#6ef3cf10 1px,transparent 1px);background-size:44px 44px;transform:perspective(600px) rotateX(58deg) translateY(28%);transform-origin:50% 100%;mask-image:linear-gradient(transparent 35%,#000 75%);animation:nu-grid 14s linear infinite}
+.nu-fx::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,#000c 100%)}
+@keyframes nu-grid{to{background-position:0 44px,0 0}}
+.nu-frame{position:absolute;inset:18px 26px 22px;display:flex;flex-direction:column;overflow:hidden;border-radius:10px;background:linear-gradient(180deg,#0a1418f2,#060d10f7);
+  border:1px solid #6ef3cf55;box-shadow:0 0 0 1px #000,0 0 50px #6ef3cf26,0 0 120px #ff3d8b12,0 40px 120px #000e}
+.nu-frame::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:3;background:repeating-linear-gradient(0deg,#ffffff05 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.nu-frame::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;z-index:3;pointer-events:none;background:linear-gradient(90deg,transparent,var(--nu-accent),var(--nu-accent2),transparent);opacity:.8}
+
+#nu-launch{position:fixed;right:24px;bottom:24px;z-index:99980;background:#0b1d20;color:#a0ffdf;border:1px solid #4ebd9e;border-radius:12px;padding:12px 19px;font:13px "Share Tech Mono",monospace;letter-spacing:.12em;box-shadow:0 8px 30px #0007,0 0 16px #6ef3cf33;cursor:pointer}
+#nu-launch:hover{box-shadow:0 8px 30px #0007,0 0 24px #6ef3cf88}
+body:has(#nu-app:not([hidden])) #nu-launch,body:has(#nu-app:not([hidden])) #cm-door{display:none}
+
+/* ── barra superior ── */
+.nu-top{position:relative;z-index:2;display:flex;align-items:center;gap:18px;padding:12px 20px;border-bottom:1px solid var(--nu-line);background:linear-gradient(90deg,#08161a,#0a1116 60%,#140b14)}
+.nu-logo{font:900 17px var(--nu-title);letter-spacing:.18em;color:var(--nu-accent);text-shadow:0 0 12px #6ef3cf88;cursor:pointer;white-space:nowrap}
+.nu-logo small{display:block;font:11px var(--nu-mono);letter-spacing:.32em;color:var(--nu-muted);text-shadow:none;margin-top:1px}
+.nu-top nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nu-btn{border:1px solid var(--nu-line);border-radius:6px;background:#0f1f25;color:var(--nu-text);padding:7px 12px}
+.nu-top .nu-btn{background:transparent;border-color:transparent;color:#b9d4d0;font:13px var(--nu-mono);letter-spacing:.06em;white-space:nowrap}
+.nu-top .nu-btn:hover{border-color:#6ef3cf66;color:var(--nu-accent);background:#6ef3cf10}
+.nu-top .nu-btn.close{color:#ffb3c9}.nu-top .nu-btn.close:hover{border-color:#ff3d8b88;background:#ff3d8b14;color:#ff8db5}
+.nu-btn:hover{border-color:var(--nu-accent)}.nu-btn.primary{background:var(--nu-accent);border-color:var(--nu-accent);color:#07211c;font-weight:800;box-shadow:0 0 18px #6ef3cf44}.nu-btn.danger{color:#ffbdac}
+
+/* ── portada: El Nexo ── */
+.nu-body{position:relative;z-index:1;overflow:auto;flex:1;padding:26px clamp(18px,3vw,44px)}
+.nu-eyebrow{color:var(--nu-accent);font:12px var(--nu-mono);letter-spacing:.3em;text-transform:uppercase}
+.nu-hero{text-align:center;margin:4px auto 30px;max-width:1200px}
+.nu-hero h1{margin:10px 0 8px;font:900 clamp(26px,3.4vw,56px)/1.05 var(--nu-title);letter-spacing:.08em;color:#eafffa;
+  text-shadow:0 0 6px #6ef3cfcc,0 0 26px #6ef3cf66,3px 0 0 #ff3d8b55,-3px 0 0 #6ef3cf44}
+.nu-hero h1 span{color:var(--nu-accent2);text-shadow:0 0 6px #ff3d8bcc,0 0 26px #ff3d8b66}
+.nu-hero p{margin:0;color:var(--nu-muted);font-size:16px}
+.nu-hero .nu-line{display:block;width:min(420px,70%);height:1px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--nu-accent),var(--nu-accent2),transparent)}
+.nu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;max-width:1700px;margin:0 auto}
+.nu-card{position:relative;display:flex;flex-direction:column;border:1px solid var(--nu-line);border-radius:8px;overflow:hidden;background:#071015;text-align:left;color:var(--nu-text);padding:0;transition:transform .18s,border-color .18s,box-shadow .18s}
+.nu-card:hover,.nu-card:focus-visible{transform:translateY(-4px);border-color:var(--nu-accent);box-shadow:0 0 0 1px #000,0 0 34px #6ef3cf44}
+.nu-card-art{position:relative;overflow:hidden;background:#000}
+.nu-art{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 20%}
+.nu-card .nu-art{filter:saturate(.85) brightness(.82);transition:filter .2s,transform .4s}
+.nu-card:hover .nu-art{filter:saturate(1.05) brightness(1);transform:scale(1.04)}
+.nu-card-art::after{content:"";position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(transparent,#071015)}
+.nu-num{font:11px var(--nu-mono);letter-spacing:.2em;color:var(--nu-accent)}
+.nu-card-art .nu-num{position:absolute;top:8px;left:10px;z-index:1;letter-spacing:0;font:900 22px var(--nu-title);color:var(--nu-accent);text-shadow:0 0 10px #000,0 0 3px #000,0 0 14px #6ef3cf88}
+.nu-card-copy{position:relative;padding:4px 14px 14px;border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--nu-accent),var(--nu-accent2)) 1}
+.nu-card-tag{font:11px var(--nu-mono);letter-spacing:.22em;color:var(--nu-muted);text-transform:uppercase;margin-top:8px}
+.nu-card h2{font:800 clamp(15px,1.2vw,18px) var(--nu-title);letter-spacing:.04em;margin:4px 0 3px;color:#eafffa}
+.nu-card p{font-size:13px;color:var(--nu-muted);margin:0}
+.nu-module-head .nu-art{aspect-ratio:1/1}
+.nu-module-head{display:flex;gap:20px;align-items:center;margin-bottom:22px}.nu-module-head .nu-art{width:86px;flex-shrink:0;border-radius:10px;border:1px solid #294348}.nu-module-head h1{margin:3px 0;font-size:30px}.nu-module-head p{margin:4px 0;color:var(--nu-muted);max-width:820px}.nu-workspace{display:grid;grid-template-columns:minmax(280px,370px) minmax(0,1fr);gap:22px;align-items:start}.nu-controls{background:var(--nu-panel);border:1px solid var(--nu-line);border-radius:12px;padding:20px}.nu-field{display:block;margin-bottom:17px}.nu-field>span{display:block;font-size:12px;font-weight:700;color:#c7e7df;margin-bottom:7px}.nu-field small{display:block;color:var(--nu-muted);font-size:11px;margin-top:5px}.nu-field textarea,.nu-field input:not([type=checkbox]),.nu-field select{width:100%;background:#071116;border:1px solid #35464d;color:var(--nu-text);border-radius:7px;padding:10px;min-width:0}.nu-field textarea{min-height:105px;resize:vertical}.nu-field input[type=file]{font-size:11px}.nu-field input[type=checkbox]{width:20px;height:20px;accent-color:var(--nu-accent)}.nu-seed{display:flex;gap:7px}.nu-upload{border:1px dashed #446667;border-radius:9px;padding:13px;margin-bottom:18px;background:#0b171e}.nu-upload.dragover{border-color:#6ef3cf;background:#16302c}.nu-upload img,.nu-upload video{display:block;max-height:125px;max-width:100%;margin:8px auto}.nu-file-name{font-size:11px;color:#a2bcbc;overflow-wrap:anywhere}.nu-result-area{min-width:0}.nu-empty{min-height:400px;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid var(--nu-line);border-radius:12px;background:radial-gradient(ellipse at center,#12262b,#090f13 70%);padding:40px;color:var(--nu-muted)}.nu-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:15px}.nu-result{padding:12px;background:#101a20;border:1px solid var(--nu-line);border-radius:10px;min-width:0}.nu-result img,.nu-result video{width:100%;max-height:550px;object-fit:contain;border-radius:6px;background:repeating-conic-gradient(#26333c 0% 25%,#16212a 0% 50%) 50%/20px 20px}.nu-result img{cursor:zoom-in}.nu-result pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:430px;overflow:auto;font:14px/1.6 system-ui}.nu-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.nu-actions .nu-btn,.nu-actions select{font-size:11px;padding:7px;background:#13272a;border:1px solid #355151;color:#e8fff5;border-radius:6px}.nu-status{padding:10px 24px;border-top:1px solid var(--nu-line);background:#0c181d;font-size:12px;color:#b1c7c4;display:flex;gap:20px;align-items:center;min-height:42px}.nu-status.error{color:#ffbcae}.nu-status progress{width:150px;accent-color:var(--nu-accent)}.nu-note{font-size:12px;color:#b3c1c4;border-left:2px solid #a79055;padding:8px 12px;background:#28271955;margin-bottom:20px}.nu-controls details{margin:14px 0}.nu-controls summary{cursor:pointer;color:#accdc5;font-size:12px;margin:8px 0}.nu-run{width:100%;padding:14px;font-size:14px!important}.nu-jobs{margin-top:20px;border-top:1px solid var(--nu-line);padding-top:10px}.nu-job{padding:8px 0;color:#a2b9b7;font-size:12px}.nu-check{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;background:#091116;padding:12px;border-radius:8px}.nu-lightbox{position:fixed;inset:0;background:#000e;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:auto}.nu-lightbox img{max-width:94vw;max-height:92vh;object-fit:contain}.nu-lightbox .nu-btn{position:fixed;right:25px;top:20px;z-index:2}.nu-compare{position:relative;width:100%;height:clamp(180px,48vh,520px);background:#131c21;overflow:hidden;cursor:ew-resize;touch-action:pan-y;user-select:none}.nu-compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}.nu-compare .top{clip-path:inset(0 50% 0 0)}.nu-compare-line{position:absolute;top:0;bottom:0;left:50%;border-left:2px solid #6ef3cf}.nu-form-row{display:flex;gap:8px;margin:12px 0}.nu-form-row select{max-width:45%;background:#13242b;color:white;padding:8px;border:1px solid #39545b;border-radius:5px}.nu-alert{padding:14px;background:#37261b;color:#ffd4ab;border:1px solid #7a512b;border-radius:8px;margin-bottom:15px}
+@media(max-width:1100px){.nu-workspace{grid-template-columns:320px minmax(0,1fr)}.nu-top{gap:8px}.nu-top nav{gap:2px}.nu-top .nu-btn{font-size:12px;padding:6px 8px}}
+@media(max-width:760px){.nu-frame{inset:6px}.nu-body{padding:16px}.nu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.nu-workspace{grid-template-columns:1fr}.nu-top{padding:10px 12px;flex-wrap:wrap}.nu-logo{font-size:14px}.nu-top nav{margin-left:0}.nu-module-head h1{font-size:24px}.nu-status{padding:8px 12px}.nu-module-head .nu-art{width:65px}}
+
+#nu-app[hidden]{display:none!important}
+
+.nu-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.nu-presets label{display:block;width:100%;font-size:13px}.nu-presets input[type=range]{width:100%;accent-color:#6ef3cf}.nu-job .nu-btn{margin-left:12px}.nu-job pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:200px;overflow:auto}.nu-result-group{grid-column:1/-1;color:#a1b3b7;font-size:13px;margin:14px 0 0}.nu-outpaint{position:relative;width:100%;max-height:250px;margin-top:10px;background:repeating-conic-gradient(#34444c 0% 25%,#17252c 0% 50%) 50%/16px 16px}.nu-status{white-space:pre-line}.nu-file-name{margin-top:6px}
+
+
+.nu-frame-previews{display:flex;gap:8px;margin:12px 0}.nu-frame-previews figure{flex:1;min-width:0;margin:0}.nu-frame-previews img{display:block;border:1px solid #34514f}.nu-frame-previews figcaption{font-size:11px;margin-top:4px}
+
+
+.nu-body{min-height:0}.nu-top{flex-wrap:wrap;flex-shrink:0}.nu-status{flex-shrink:0}.nu-compare-line{pointer-events:none}.nu-compare-line::after{content:"↔";position:absolute;top:50%;left:0;transform:translate(-50%,-50%);background:#6ef3cf;color:#07211c;border-radius:50%;padding:8px;font-size:20px;font-weight:bold}.nu-result-area>details>input[type=range]{display:block;margin:10px 0;min-height:28px;accent-color:#6ef3cf}
+
+/* ── retoques del rediseño ── */
+.nu-status{position:relative;z-index:2;background:#071216;border-top-color:var(--nu-line);font-family:var(--nu-mono);letter-spacing:.04em}
+.nu-status .nu-ver{margin-left:auto;color:#5f7a7e;font-size:11px;letter-spacing:.2em;white-space:nowrap}
+.nu-module-head h1{font:900 30px var(--nu-title);letter-spacing:.06em;color:#eafffa;text-shadow:0 0 18px #6ef3cf55}
+.nu-module-head .nu-art{border-color:#6ef3cf55;box-shadow:0 0 22px #6ef3cf33}
+.nu-note{max-width:1700px;margin-left:auto;margin-right:auto}
+.nu-result audio{display:block;width:100%;margin:10px 0 4px;accent-color:var(--nu-accent);filter:hue-rotate(140deg) saturate(.8)}

@@ -1,0 +1,23 @@
+[project]
+name = "neural-underground"
+version = "2.2.0"
+description = "12 workflows de ComfyUI en un solo panel cyberpunk: imagen, edición, vídeo, interpolación y música, sin tocar nodos · 12 ComfyUI workflows in one cyberpunk panel: image, editing, video, interpolation and music, no node wiring."
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+    "Operating System :: OS Independent",
+    "Environment :: GPU :: NVIDIA CUDA",
+]
+
+[project.urls]
+Repository = "https://github.com/Gustaafvito/neural-underground"
+Documentation = "https://github.com/Gustaafvito/neural-underground#readme"
+"Bug Tracker" = "https://github.com/Gustaafvito/neural-underground/issues"
+
+[tool.comfy]
+PublisherId = "gustaafvito"
+DisplayName = "Neural Underground"
+Icon = "https://raw.githubusercontent.com/Gustaafvito/neural-underground/main/docs/icono.jpg"
+Banner = "https://raw.githubusercontent.com/Gustaafvito/neural-underground/main/docs/banner.jpg"
+requires-comfyui = ">=0.37.0"

@@ -1,0 +1,712 @@
+{
+  "nodes": [
+    {
+      "id": 101,
+      "type": "FrameInterpolationModelLoader",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "nombre del modelo",
+          "name": "model_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "model_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "MODELO_INTERP",
+          "name": "INTERP_MODEL",
+          "type": "INTERP_MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FrameInterpolationModelLoader",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "models": [
+          {
+            "name": "film_net_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/frame_interpolation/resolve/main/frame_interpolation/film_net_fp16.safetensors",
+            "directory": "frame_interpolation"
+          }
+        ]
+      },
+      "widgets_values": [
+        "film_net_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 102,
+      "type": "FrameInterpolate",
+      "pos": [
+        780,
+        0
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "interp_model",
+          "name": "interp_model",
+          "type": "INTERP_MODEL",
+          "link": 1
+        },
+        {
+          "localized_name": "imágenes",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "localized_name": "multiplicador",
+          "name": "multiplier",
+          "type": "INT",
+          "widget": {
+            "name": "multiplier"
+          },
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGEN",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FrameInterpolate",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        2
+      ]
+    },
+    {
+      "id": 105,
+      "type": "CreateVideo",
+      "pos": [
+        1560,
+        0
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "imágenes",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 4
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 5
+        },
+        {
+          "localized_name": "fps",
+          "name": "fps",
+          "type": "FLOAT",
+          "widget": {
+            "name": "fps"
+          },
+          "link": 12
+        },
+        {
+          "localized_name": "bit_depth",
+          "name": "bit_depth",
+          "shape": 7,
+          "type": "INT",
+          "widget": {
+            "name": "bit_depth"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "VÍDEO",
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CreateVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        30,
+        8
+      ]
+    },
+    {
+      "id": 109,
+      "type": "PrimitiveInt",
+      "pos": [
+        0,
+        360
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "valor",
+          "name": "value",
+          "type": "INT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "ENTERO",
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            8,
+            19
+          ]
+        }
+      ],
+      "title": "Int (Multiplier)",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        2,
+        "fixed"
+      ]
+    },
+    {
+      "id": 110,
+      "type": "ComfySwitchNode",
+      "pos": [
+        1170,
+        0
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "en_falso",
+          "name": "on_false",
+          "type": "FLOAT",
+          "link": 11
+        },
+        {
+          "localized_name": "en_verdadero",
+          "name": "on_true",
+          "type": "FLOAT",
+          "link": 13
+        },
+        {
+          "localized_name": "interruptor",
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "salida",
+          "name": "output",
+          "type": "FLOAT",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 113,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        0,
+        720
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "valor",
+          "name": "value",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "BOOLEANO",
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "title": "Boolean (Apply multiplier to FPS?)",
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 103,
+      "type": "GetVideoComponents",
+      "pos": [
+        390,
+        0
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "imágenes",
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            3
+          ]
+        },
+        {
+          "localized_name": "audio",
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            5
+          ]
+        },
+        {
+          "localized_name": "fps",
+          "name": "fps",
+          "type": "FLOAT",
+          "links": [
+            11,
+            18
+          ]
+        },
+        {
+          "localized_name": "bit_depth",
+          "name": "bit_depth",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetVideoComponents",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      }
+    },
+    {
+      "id": 111,
+      "type": "ComfyMathExpression",
+      "pos": [
+        780,
+        360
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "a",
+          "localized_name": "values.a",
+          "name": "values.a",
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 18
+        },
+        {
+          "label": "b",
+          "localized_name": "values.b",
+          "name": "values.b",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": 19
+        },
+        {
+          "label": "c",
+          "localized_name": "values.c",
+          "name": "values.c",
+          "shape": 7,
+          "type": "FLOAT,INT,BOOLEAN",
+          "link": null
+        },
+        {
+          "localized_name": "expresión",
+          "name": "expression",
+          "type": "STRING",
+          "widget": {
+            "name": "expression"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "FLOTANTE",
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            13
+          ]
+        },
+        {
+          "localized_name": "ENTERO",
+          "name": "INT",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "BOOL",
+          "name": "BOOL",
+          "type": "BOOLEAN",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfyMathExpression",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        "min(abs(b), 16) * a"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadVideo",
+      "pos": [
+        0,
+        1080
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "archivo",
+          "name": "file",
+          "type": "COMBO",
+          "widget": {
+            "name": "file"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "elegir archivo para subir",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "VÍDEO",
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "SaveVideo",
+      "pos": [
+        1950,
+        0
+      ],
+      "size": [
+        350,
+        170
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 21
+        },
+        {
+          "localized_name": "prefijo_nombre_archivo",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "formato",
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "códec",
+          "name": "codec",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveVideo",
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3"
+      },
+      "widgets_values": [
+        "neural_underground/10_el_cronista/7",
+        "auto",
+        "auto"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      101,
+      0,
+      102,
+      0,
+      "INTERP_MODEL"
+    ],
+    [
+      3,
+      103,
+      0,
+      102,
+      1,
+      "IMAGE"
+    ],
+    [
+      8,
+      109,
+      0,
+      102,
+      2,
+      "INT"
+    ],
+    [
+      4,
+      102,
+      0,
+      105,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      103,
+      1,
+      105,
+      1,
+      "AUDIO"
+    ],
+    [
+      12,
+      110,
+      0,
+      105,
+      2,
+      "FLOAT"
+    ],
+    [
+      11,
+      103,
+      2,
+      110,
+      0,
+      "FLOAT"
+    ],
+    [
+      13,
+      111,
+      0,
+      110,
+      1,
+      "FLOAT"
+    ],
+    [
+      15,
+      113,
+      0,
+      110,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      18,
+      103,
+      2,
+      111,
+      0,
+      "FLOAT"
+    ],
+    [
+      19,
+      109,
+      0,
+      111,
+      1,
+      "INT"
+    ],
+    [
+      20,
+      4,
+      0,
+      103,
+      0,
+      "VIDEO"
+    ],
+    [
+      21,
+      105,
+      0,
+      7,
+      0,
+      "VIDEO"
+    ]
+  ],
+  "last_node_id": 113,
+  "last_link_id": 21,
+  "groups": [],
+  "extra": {
+    "neural_underground": {
+      "id": "el_cronista",
+      "version": "1.0.0-beta.1"
+    },
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        40,
+        40
+      ]
+    }
+  },
+  "version": 0.4
+}

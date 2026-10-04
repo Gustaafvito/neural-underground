@@ -1,0 +1,891 @@
+{
+  "last_node_id": 106,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            7
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "ace_step_1.5_turbo_aio.safetensors"
+      ],
+      "title": "1a · Rápido: ACE-Step 1.5 Turbo (todo en uno)"
+    },
+    {
+      "id": 30,
+      "type": "UNETLoader",
+      "pos": [
+        0,
+        200
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "acestep_v1.5_xl_sft_bf16.safetensors",
+        "default"
+      ],
+      "title": "1b · Calidad: ACE-Step 1.5 XL SFT"
+    },
+    {
+      "id": 31,
+      "type": "DualCLIPLoader",
+      "pos": [
+        0,
+        340
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DualCLIPLoader"
+      },
+      "widgets_values": [
+        "qwen_0.6b_ace15.safetensors",
+        "qwen_4b_ace15.safetensors",
+        "ace",
+        "default"
+      ],
+      "title": "1c · Calidad: texto ACE 1.5"
+    },
+    {
+      "id": 32,
+      "type": "VAELoader",
+      "pos": [
+        0,
+        520
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "ace_1.5_vae.safetensors"
+      ],
+      "title": "1d · Calidad: VAE ACE 1.5"
+    },
+    {
+      "id": 40,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        0,
+        640
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            3,
+            6,
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "Calidad XL"
+    },
+    {
+      "id": 41,
+      "type": "ComfySwitchNode",
+      "pos": [
+        380,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 3
+        },
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 1
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "Modelo según modo"
+    },
+    {
+      "id": 42,
+      "type": "ComfySwitchNode",
+      "pos": [
+        380,
+        160
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 6
+        },
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 4
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "Texto según modo"
+    },
+    {
+      "id": 43,
+      "type": "ComfySwitchNode",
+      "pos": [
+        380,
+        320
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 9
+        },
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 7
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            20
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "VAE según modo"
+    },
+    {
+      "id": 2,
+      "type": "PrimitiveFloat",
+      "pos": [
+        380,
+        480
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            11,
+            14
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveFloat"
+      },
+      "widgets_values": [
+        60.0
+      ],
+      "title": "Duración (segundos)"
+    },
+    {
+      "id": 94,
+      "type": "TextEncodeAceStepAudio1.5",
+      "pos": [
+        760,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 10
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            12,
+            16
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeAceStepAudio1.5"
+      },
+      "widgets_values": [
+        "dark synthwave, cyberpunk, 100 BPM, pulsing analog bass, gated drums, shimmering arpeggios, atmospheric pads, female vocals, melancholic, cinematic",
+        "[Verse]\nBajo la ciudad late un corazón de neón\ncables en la sombra, susurro de canción\ncada pantalla guarda un nombre que olvidé\ny en la lluvia digital te volveré a ver\n\n[Chorus]\nNeural, underground\nla señal no se apaga\nNeural, underground\nsomos luz en la madrugada\n\n[Outro]\nNeural... underground",
+        7,
+        "fixed",
+        100,
+        60.0,
+        "4",
+        "es",
+        "A minor",
+        true,
+        2.0,
+        0.85,
+        0.9,
+        0,
+        0.0
+      ],
+      "title": "2 · Estilo, letra y tempo"
+    },
+    {
+      "id": 47,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        1140,
+        300
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            17
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ConditioningZeroOut"
+      },
+      "widgets_values": [],
+      "title": "Negativo vacío"
+    },
+    {
+      "id": 78,
+      "type": "ModelSamplingAuraFlow",
+      "pos": [
+        1140,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            15
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingAuraFlow"
+      },
+      "widgets_values": [
+        3,
+        "flow"
+      ],
+      "title": "Shift"
+    },
+    {
+      "id": 98,
+      "type": "EmptyAceStep1.5LatentAudio",
+      "pos": [
+        1140,
+        420
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seconds"
+          },
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyAceStep1.5LatentAudio"
+      },
+      "widgets_values": [
+        60.0,
+        1
+      ],
+      "title": "Pista vacía"
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        1520,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 15
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 16
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 17
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            19
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        7,
+        "fixed",
+        50,
+        7,
+        "euler",
+        "simple",
+        1
+      ],
+      "title": "3 · KSampler (Rápido 8 pasos CFG 1 · Calidad 50 pasos CFG 7)"
+    },
+    {
+      "id": 18,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        1900,
+        0
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 19
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            21
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio"
+      },
+      "widgets_values": [],
+      "title": "4 · Decodificar audio"
+    },
+    {
+      "id": 106,
+      "type": "SaveAudioMP3",
+      "pos": [
+        1900,
+        160
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveAudioMP3"
+      },
+      "widgets_values": [
+        "neural_underground/12_el_compositor/106",
+        "V0"
+      ],
+      "title": "5 · Guardar MP3"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      41,
+      1,
+      "MODEL"
+    ],
+    [
+      2,
+      30,
+      0,
+      41,
+      2,
+      "MODEL"
+    ],
+    [
+      3,
+      40,
+      0,
+      41,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      4,
+      1,
+      1,
+      42,
+      1,
+      "CLIP"
+    ],
+    [
+      5,
+      31,
+      0,
+      42,
+      2,
+      "CLIP"
+    ],
+    [
+      6,
+      40,
+      0,
+      42,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      7,
+      1,
+      2,
+      43,
+      1,
+      "VAE"
+    ],
+    [
+      8,
+      32,
+      0,
+      43,
+      2,
+      "VAE"
+    ],
+    [
+      9,
+      40,
+      0,
+      43,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      10,
+      42,
+      0,
+      94,
+      0,
+      "*"
+    ],
+    [
+      11,
+      2,
+      0,
+      94,
+      1,
+      "FLOAT"
+    ],
+    [
+      12,
+      94,
+      0,
+      47,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      13,
+      41,
+      0,
+      78,
+      0,
+      "*"
+    ],
+    [
+      14,
+      2,
+      0,
+      98,
+      0,
+      "FLOAT"
+    ],
+    [
+      15,
+      78,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      16,
+      94,
+      0,
+      3,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      17,
+      47,
+      0,
+      3,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      18,
+      98,
+      0,
+      3,
+      3,
+      "LATENT"
+    ],
+    [
+      19,
+      3,
+      0,
+      18,
+      0,
+      "LATENT"
+    ],
+    [
+      20,
+      43,
+      0,
+      18,
+      1,
+      "*"
+    ],
+    [
+      21,
+      18,
+      0,
+      106,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "version": 0.4,
+  "extra": {
+    "neural_underground": {
+      "id": "el_compositor",
+      "version": "2.1.0"
+    },
+    "ds": {
+      "scale": 0.6,
+      "offset": [
+        40,
+        40
+      ]
+    }
+  }
+}

@@ -1,0 +1,1292 @@
+{
+  "version": "2.2.0",
+  "modules": [
+    {
+      "id": "el_escaner",
+      "index": 1,
+      "title": "El Escáner",
+      "subtitle": "Imagen → descripción + pose · Qwen3-VL",
+      "description": "Qwen3-VL 8B mira la imagen y escribe una descripción detallada que puedes usar como prompt en otro módulo. DWPose extrae el esqueleto de la pose como imagen aparte.",
+      "risk": "Qwen3-VL 8B local (≈9 GB). La descripción sale en inglés salvo que se lo pidas en la instrucción. La primera ejecución tarda más mientras carga el modelo.",
+      "source": "pose_y_prompt_desde_imagen.json",
+      "file": "01_EL_ESCANER.json",
+      "controls": [
+        {
+          "label": "Instrucción para Qwen",
+          "nodes": [
+            5
+          ],
+          "widget": "prompt",
+          "kind": "text",
+          "help": "Qué quieres que haga con la imagen. Usa los botones de arriba para cambiar de modo.",
+          "advanced": false
+        },
+        {
+          "label": "Longitud máxima · tokens",
+          "nodes": [
+            5
+          ],
+          "widget": "max_length",
+          "kind": null,
+          "help": "",
+          "advanced": true,
+          "min": 32,
+          "max": 2048,
+          "step": 1
+        },
+        {
+          "label": "Detalle de pose",
+          "nodes": [
+            2
+          ],
+          "widget": "resolution",
+          "kind": null,
+          "help": "",
+          "advanced": true,
+          "fallbackIndex": 3
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Imagen que analizar",
+          "node": 1,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        3,
+        7
+      ],
+      "models": [
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "dw-ll_ucoco_384.onnx",
+        "yolox_l.onnx"
+      ],
+      "nodeTypes": [
+        "LoadImage",
+        "DWPreprocessor",
+        "SaveImage",
+        "CLIPLoader",
+        "TextGenerate",
+        "NUTextResult"
+      ],
+      "providers": []
+    },
+    {
+      "id": "el_implante",
+      "index": 2,
+      "title": "El Implante",
+      "subtitle": "Combina dos LoRAs · Z-Image Turbo",
+      "description": "Genera con Z-Image Turbo y mezcla hasta dos LoRAs de estilo (implantes). Puedes apagar cada implante sin quitarlo. Algunos LoRAs necesitan su palabra clave en la descripción.",
+      "risk": "Los LoRAs pueden competir: empieza con intensidades de 0,5–0,8. Palabras clave: EtherialGothicZBase, DarkestDnDZBase, MIDJ_Z_IMAGE_BASE, «Pixel art style.».",
+      "source": "10_varias_loras.json",
+      "file": "02_EL_IMPLANTE.json",
+      "controls": [
+        {
+          "label": "Descripción",
+          "nodes": [
+            6
+          ],
+          "widget": "text",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Implante A · LoRA",
+          "nodes": [
+            13
+          ],
+          "widget": "lora_name",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Intensidad A",
+          "nodes": [
+            13
+          ],
+          "widget": "strength_model",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "min": -2,
+          "max": 2,
+          "step": 0.05
+        },
+        {
+          "label": "Implante B · LoRA",
+          "nodes": [
+            14
+          ],
+          "widget": "lora_name",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Intensidad B",
+          "nodes": [
+            14
+          ],
+          "widget": "strength_model",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "min": -2,
+          "max": 2,
+          "step": 0.05
+        },
+        {
+          "label": "Anchura",
+          "nodes": [
+            5
+          ],
+          "widget": "width",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "Altura",
+          "nodes": [
+            5
+          ],
+          "widget": "height",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            3
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            3
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Shift",
+          "nodes": [
+            12
+          ],
+          "widget": "shift",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        }
+      ],
+      "inputs": [],
+      "outputNodes": [
+        9
+      ],
+      "models": [
+        "z_image_turbo_bf16.safetensors",
+        "qwen_3_4b.safetensors",
+        "ae.safetensors",
+        "ZImage/cyberNoirDetective.safetensors",
+        "ZImage/REDZ15_DetailDaemonZ_lora_v1.1.safetensors"
+      ],
+      "nodeTypes": [
+        "UNETLoader",
+        "CLIPLoader",
+        "VAELoader",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "CLIPTextEncode",
+        "ConditioningZeroOut",
+        "EmptySD3LatentImage",
+        "KSampler",
+        "VAEDecode",
+        "SaveImage"
+      ],
+      "providers": []
+    },
+    {
+      "id": "los_sectores",
+      "index": 3,
+      "title": "Los Sectores",
+      "subtitle": "Composición izquierda / derecha · Qwen Image 2512",
+      "description": "Describe la escena general y qué va en cada mitad. Qwen Image 2512 entiende la posición dentro del propio prompt, sin dividir el lienzo en regiones rígidas.",
+      "risk": "Qwen Image 2512 · 4 pasos con Lightning. Funciona mejor en horizontal. Si un elemento se cruza de lado, sé más explícito en la descripción del sector.",
+      "source": "07_regional_prompting.json",
+      "file": "03_LOS_SECTORES.json",
+      "controls": [
+        {
+          "label": "Escena global",
+          "nodes": [
+            10
+          ],
+          "widget": "value",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Sector izquierdo",
+          "nodes": [
+            11
+          ],
+          "widget": "value",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Sector derecho",
+          "nodes": [
+            12
+          ],
+          "widget": "value",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Anchura",
+          "nodes": [
+            5
+          ],
+          "widget": "width",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "Altura",
+          "nodes": [
+            5
+          ],
+          "widget": "height",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            4
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            4
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true,
+          "min": 8,
+          "max": 50
+        }
+      ],
+      "inputs": [],
+      "outputNodes": [
+        8
+      ],
+      "models": [
+        "qwen_image_2512_fp8_e4m3fn.safetensors",
+        "Qwen-Image-2512-Lightning-4steps-V1.0-fp32.safetensors",
+        "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+        "qwen_image_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CLIPLoader",
+        "CLIPTextEncode",
+        "EmptySD3LatentImage",
+        "KSampler",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "PrimitiveStringMultiline",
+        "SaveImage",
+        "StringConcatenate",
+        "UNETLoader",
+        "VAEDecode",
+        "VAELoader"
+      ],
+      "providers": [
+        "comfy-core"
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "la_fuga",
+      "index": 4,
+      "title": "La Fuga",
+      "subtitle": "Expande los bordes · Qwen Image Edit 2511",
+      "description": "Amplía el lienzo y genera contenido en los bordes añadidos. Es outpainting, no escalado de resolución.",
+      "risk": "Qwen Image Edit 2511 · 4 pasos. Solo se genera en los bordes nuevos; tu imagen original se conserva. Empieza con bordes de 128–400 px.",
+      "source": "27-flux_fill_outpaint_example.json",
+      "file": "04_LA_FUGA.json",
+      "controls": [
+        {
+          "label": "Qué aparece fuera del encuadre",
+          "nodes": [
+            23
+          ],
+          "widget": "value",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Extender izquierda · px",
+          "nodes": [
+            44
+          ],
+          "widget": "left",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Extender derecha · px",
+          "nodes": [
+            44
+          ],
+          "widget": "right",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Extender arriba · px",
+          "nodes": [
+            44
+          ],
+          "widget": "top",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Extender abajo · px",
+          "nodes": [
+            44
+          ],
+          "widget": "bottom",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Suavidad del borde",
+          "nodes": [
+            44
+          ],
+          "widget": "feathering",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            3
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            3
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Modelo",
+          "nodes": [
+            1
+          ],
+          "widget": "unet_name",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Imagen original",
+          "node": 17,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        9
+      ],
+      "models": [
+        "qwen_image_edit_2511_int8_convrot.safetensors",
+        "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+        "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+        "qwen_image_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CFGNorm",
+        "CLIPLoader",
+        "DifferentialDiffusion",
+        "FluxKontextMultiReferenceLatentMethod",
+        "ImagePadForOutpaint",
+        "KSampler",
+        "LoadImage",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "PrimitiveStringMultiline",
+        "SaveImage",
+        "SetLatentNoiseMask",
+        "StringConcatenate",
+        "TextEncodeQwenImageEditPlus",
+        "UNETLoader",
+        "VAEDecode",
+        "VAEEncode",
+        "VAELoader"
+      ],
+      "providers": [
+        "comfy-core"
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "el_aislante",
+      "index": 5,
+      "title": "El Aislante",
+      "subtitle": "Extrae el sujeto · PNG con alfa",
+      "description": "Separa el sujeto del fondo y guarda un PNG transparente. El panel muestra un tablero para distinguir el canal alfa.",
+      "risk": "Requiere los nodos BiRefNet de ComfyUI y el modelo birefnet.safetensors.",
+      "source": "02-util_birefnet_remove_background.json",
+      "file": "05_EL_AISLANTE.json",
+      "controls": [
+        {
+          "label": "Modelo de recorte",
+          "nodes": [
+            14
+          ],
+          "widget": "bg_removal_name",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Imagen del sujeto",
+          "node": 17,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        21,
+        20
+      ],
+      "models": [
+        "birefnet.safetensors"
+      ],
+      "nodeTypes": [
+        "InvertMask",
+        "JoinImageWithAlpha",
+        "LoadBackgroundRemovalModel",
+        "LoadImage",
+        "MaskPreview",
+        "PreviewImage",
+        "RemoveBackground",
+        "SaveImage"
+      ],
+      "providers": [
+        "comfy-core"
+      ]
+    },
+    {
+      "id": "la_mutacion",
+      "index": 6,
+      "title": "La Mutación",
+      "subtitle": "Edita una imagen con órdenes · Qwen Image Edit 2511",
+      "description": "Escribe qué quieres cambiar («que sea de noche», «ponle un abrigo rojo», «estilo cómic») y Qwen Image Edit 2511 edita la imagen conservando lo demás: cara, pose y composición.",
+      "risk": "Qwen Image Edit 2511 · 4 pasos con Lightning (rápido). «Calidad» quita el Lightning y hace 30 pasos (más lento). Las órdenes en inglés suelen funcionar mejor. Di explícitamente qué debe mantenerse.",
+      "source": "05_img2img_juggernaut.json",
+      "file": "06_LA_MUTACION.json",
+      "controls": [
+        {
+          "label": "Orden de edición",
+          "nodes": [
+            2
+          ],
+          "widget": "prompt",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Megapíxeles de trabajo",
+          "nodes": [
+            25
+          ],
+          "widget": "megapixels",
+          "kind": null,
+          "help": "Lado aproximado en píxeles (1024 ≈ 1 MP). 0 = tamaño original.",
+          "advanced": false,
+          "min": 0,
+          "max": 2048,
+          "step": 32
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            4
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            4
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true,
+          "min": 8,
+          "max": 50
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Imagen que transformar",
+          "node": 6,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        8
+      ],
+      "models": [
+        "qwen_image_edit_2511_int8_convrot.safetensors",
+        "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+        "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+        "qwen_image_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CFGNorm",
+        "CLIPLoader",
+        "FluxKontextMultiReferenceLatentMethod",
+        "ImageScaleToTotalPixels",
+        "KSampler",
+        "LoadImage",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "SaveImage",
+        "TextEncodeQwenImageEditPlus",
+        "UNETLoader",
+        "VAEDecode",
+        "VAEEncode",
+        "VAELoader"
+      ],
+      "providers": [
+        "comfy-core"
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "el_doble",
+      "index": 7,
+      "title": "El Doble",
+      "subtitle": "Compara cuatro samplers · Z-Image Turbo",
+      "description": "Genera cuatro variantes con la misma semilla, prompt y pasos en Z-Image Turbo. Cambian sampler y scheduler: res_multistep/simple, euler/simple, euler ancestral/beta y DPM++ 2M/sgm_uniform.",
+      "risk": "Cuatro generaciones de 8 pasos (~30 s en total).",
+      "source": "06_comparar_samplers.json",
+      "file": "07_EL_DOBLE.json",
+      "controls": [
+        {
+          "label": "Descripción común",
+          "nodes": [
+            6
+          ],
+          "widget": "text",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Semilla común",
+          "nodes": [
+            3,
+            17,
+            21,
+            28
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos comunes",
+          "nodes": [
+            3,
+            17,
+            21,
+            28
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "min": 4,
+          "max": 30
+        },
+        {
+          "label": "Anchura",
+          "nodes": [
+            5
+          ],
+          "widget": "width",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "Altura",
+          "nodes": [
+            5
+          ],
+          "widget": "height",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "step": 16
+        },
+        {
+          "label": "CFG común",
+          "nodes": [
+            3,
+            17,
+            21,
+            28
+          ],
+          "widget": "cfg",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        }
+      ],
+      "inputs": [],
+      "outputNodes": [
+        15,
+        26,
+        27,
+        31
+      ],
+      "models": [
+        "z_image_turbo_bf16.safetensors",
+        "qwen_3_4b.safetensors",
+        "ae.safetensors"
+      ],
+      "nodeTypes": [
+        "UNETLoader",
+        "CLIPLoader",
+        "VAELoader",
+        "ModelSamplingAuraFlow",
+        "CLIPTextEncode",
+        "ConditioningZeroOut",
+        "EmptySD3LatentImage",
+        "KSampler",
+        "VAEDecode",
+        "SaveImage"
+      ],
+      "providers": []
+    },
+    {
+      "id": "el_puente",
+      "index": 8,
+      "title": "El Puente",
+      "subtitle": "Vídeo entre dos fotogramas",
+      "description": "Wan 2.2 FLF2V con rama LightX2V de cuatro pasos. Condiciona el principio y el final del clip con tus dos imágenes.",
+      "risk": "Dos modelos de 14B y dos LoRAs. No se garantiza que quepa en 16 GB; requiere prueba local.",
+      "source": "02-video_wan2_2_14b_flf2v.json",
+      "file": "08_EL_PUENTE.json",
+      "controls": [
+        {
+          "label": "Describe la transición",
+          "nodes": [
+            6
+          ],
+          "widget": "text",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Anchura",
+          "nodes": [
+            67
+          ],
+          "widget": "width",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Altura",
+          "nodes": [
+            67
+          ],
+          "widget": "height",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Fotogramas · 4n+1",
+          "nodes": [
+            67
+          ],
+          "widget": "length",
+          "kind": null,
+          "help": "49 fotogramas a 16 fps ≈ 3 segundos",
+          "advanced": false
+        },
+        {
+          "label": "FPS de salida",
+          "nodes": [
+            60
+          ],
+          "widget": "fps",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            57
+          ],
+          "widget": "noise_seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Fotograma inicial",
+          "node": 62,
+          "widget": "image",
+          "kind": "image"
+        },
+        {
+          "label": "Fotograma final",
+          "node": 68,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        61
+      ],
+      "models": [
+        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+        "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
+        "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors",
+        "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+        "wan_2.1_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CLIPLoader",
+        "CLIPTextEncode",
+        "CreateVideo",
+        "KSamplerAdvanced",
+        "LoadImage",
+        "LoraLoaderModelOnly",
+        "ModelSamplingSD3",
+        "SaveVideo",
+        "UNETLoader",
+        "VAEDecode",
+        "VAELoader",
+        "WanFirstLastFrameToVideo"
+      ],
+      "providers": [
+        "comfy-core"
+      ]
+    },
+    {
+      "id": "la_orbita",
+      "index": 9,
+      "title": "La Órbita",
+      "subtitle": "Dirige la cámara · Wan Fun Camera + Lightning",
+      "description": "Genera vídeo a partir de una imagen y un movimiento de cámara. Usa los LoRAs Lightning de 4 pasos (≈45 s); el modo Calidad vuelve a 20 pasos.",
+      "risk": "Modelos Fun Camera 14B. Rápido: 4 pasos ≈45 s · Calidad: 20 pasos ≈3 min.",
+      "source": "04-video_wan2_2_14b_fun_camera.json",
+      "file": "09_LA_ORBITA.json",
+      "controls": [
+        {
+          "label": "Acción de la escena",
+          "nodes": [
+            107
+          ],
+          "widget": "text",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Movimiento de cámara",
+          "nodes": [
+            108
+          ],
+          "widget": "camera_pose",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Anchura",
+          "nodes": [
+            98,
+            108
+          ],
+          "widget": "width",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Altura",
+          "nodes": [
+            98,
+            108
+          ],
+          "widget": "height",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Fotogramas · 4n+1",
+          "nodes": [
+            98,
+            108
+          ],
+          "widget": "length",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "FPS de salida",
+          "nodes": [
+            105
+          ],
+          "widget": "fps",
+          "kind": null,
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            102
+          ],
+          "widget": "noise_seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Imagen de partida",
+          "node": 97,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        106
+      ],
+      "models": [
+        "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "wan2.2_fun_camera_high_noise_14B_fp8_scaled.safetensors",
+        "wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors",
+        "wan_2.1_vae.safetensors",
+        "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
+        "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors"
+      ],
+      "nodeTypes": [
+        "CLIPLoader",
+        "CLIPTextEncode",
+        "CreateVideo",
+        "KSamplerAdvanced",
+        "LoadImage",
+        "ModelSamplingSD3",
+        "SaveVideo",
+        "UNETLoader",
+        "VAEDecode",
+        "VAELoader",
+        "WanCameraEmbedding",
+        "WanCameraImageToVideo"
+      ],
+      "providers": [
+        "comfy-core"
+      ]
+    },
+    {
+      "id": "el_cronista",
+      "index": 10,
+      "title": "El Cronista",
+      "subtitle": "Interpola fotogramas · FILM",
+      "description": "Añade fotogramas intermedios para aumentar los FPS o crear cámara lenta. Puedes conservar o quitar el audio original; no se estira al ralentizar.",
+      "risk": "Necesita FILM y nodos recientes de ComfyUI. No aumenta la resolución; puede producir artefactos en cortes.",
+      "source": "05-util_video_frame_interpolation.json",
+      "file": "10_EL_CRONISTA.json",
+      "controls": [
+        {
+          "label": "Multiplicador",
+          "nodes": [
+            109
+          ],
+          "widget": "value",
+          "kind": null,
+          "help": "Entero de 2 a 16. Aumentar el multiplicador aumenta los fotogramas y la memoria necesaria.",
+          "advanced": false,
+          "min": 2,
+          "max": 16,
+          "step": 1
+        },
+        {
+          "label": "Mantener duración · aumentar FPS",
+          "nodes": [
+            113
+          ],
+          "widget": "value",
+          "kind": null,
+          "help": "Activado: más fluidez y duración similar. Desactivado: cámara lenta; revisa el audio.",
+          "advanced": false
+        },
+        {
+          "label": "Modelo de interpolación",
+          "nodes": [
+            101
+          ],
+          "widget": "model_name",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Vídeo de entrada",
+          "node": 4,
+          "widget": "file",
+          "kind": "video",
+          "fallbackIndex": 0
+        }
+      ],
+      "outputNodes": [
+        7
+      ],
+      "models": [
+        "film_net_fp16.safetensors"
+      ],
+      "nodeTypes": [
+        "ComfyMathExpression",
+        "ComfySwitchNode",
+        "CreateVideo",
+        "FrameInterpolate",
+        "FrameInterpolationModelLoader",
+        "GetVideoComponents",
+        "LoadVideo",
+        "PrimitiveBoolean",
+        "PrimitiveInt",
+        "SaveVideo"
+      ],
+      "providers": [
+        "comfy-core"
+      ]
+    },
+    {
+      "id": "el_sastre",
+      "index": 11,
+      "title": "El Sastre",
+      "subtitle": "Combina dos referencias · Qwen Image Edit 2511",
+      "description": "Junta dos imágenes en una: una persona con la ropa, el objeto o el fondo de otra. Escribe qué tomar de cada imagen («la persona de la imagen 1 con la chaqueta de la imagen 2»).",
+      "risk": "Qwen Image Edit 2511 · 4 pasos con Lightning (rápido). «Calidad» quita el Lightning y hace 30 pasos (más lento). La salida toma el encuadre de la referencia 1. Nombra las imágenes como «image 1» e «image 2».",
+      "source": "image_qwen_image_2_1_image_edit.json",
+      "file": "11_EL_SASTRE.json",
+      "controls": [
+        {
+          "label": "Instrucción",
+          "nodes": [
+            2
+          ],
+          "widget": "prompt",
+          "kind": "text",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Megapíxeles de trabajo",
+          "nodes": [
+            25
+          ],
+          "widget": "megapixels",
+          "kind": null,
+          "help": "Lado aproximado en píxeles (1024 ≈ 1 MP).",
+          "advanced": false,
+          "min": 0,
+          "max": 2048,
+          "step": 32
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            4
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            4
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true,
+          "min": 8,
+          "max": 50
+        }
+      ],
+      "inputs": [
+        {
+          "label": "Referencia 1 · persona o base",
+          "node": 6,
+          "widget": "image",
+          "kind": "image"
+        },
+        {
+          "label": "Referencia 2 · prenda, objeto o fondo",
+          "node": 9,
+          "widget": "image",
+          "kind": "image"
+        }
+      ],
+      "outputNodes": [
+        8
+      ],
+      "models": [
+        "qwen_image_edit_2511_int8_convrot.safetensors",
+        "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+        "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+        "qwen_image_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CFGNorm",
+        "CLIPLoader",
+        "FluxKontextMultiReferenceLatentMethod",
+        "ImageScaleToTotalPixels",
+        "KSampler",
+        "LoadImage",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "SaveImage",
+        "TextEncodeQwenImageEditPlus",
+        "UNETLoader",
+        "VAEDecode",
+        "VAEEncode",
+        "VAELoader"
+      ],
+      "providers": [
+        "comfy-core"
+      ],
+      "version": "2.2.0"
+    },
+    {
+      "id": "el_compositor",
+      "index": 12,
+      "title": "El Compositor",
+      "subtitle": "Canciones desde letra y estilo · ACE-Step 1.5 Turbo / XL",
+      "description": "Escribe el estilo (géneros, instrumentos, voz) y la letra con etiquetas [Verse], [Chorus]… y ACE-Step 1.5 compone la canción completa con voz.",
+      "risk": "Rápido: ACE-Step 1.5 Turbo, 8 pasos (~25 s por minuto de canción). Calidad XL: modelo XL SFT, 50 pasos (~50 s por minuto), voz más trabajada. Idioma de la letra en Ajustes avanzados.",
+      "source": "audio_ace_step_1_5_checkpoint.json",
+      "file": "12_EL_COMPOSITOR.json",
+      "controls": [
+        {
+          "label": "Estilo · etiquetas",
+          "nodes": [
+            94
+          ],
+          "widget": "tags",
+          "kind": "text",
+          "help": "Géneros, instrumentos, voz, ambiente y BPM, separados por comas.",
+          "advanced": false
+        },
+        {
+          "label": "Letra",
+          "nodes": [
+            94
+          ],
+          "widget": "lyrics",
+          "kind": "text",
+          "help": "Usa [Verse], [Chorus], [Bridge], [Outro]. Déjala vacía o pon [Instrumental] para música sin voz.",
+          "advanced": false
+        },
+        {
+          "label": "Duración · segundos",
+          "nodes": [
+            2
+          ],
+          "widget": "value",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "min": 10,
+          "max": 240,
+          "step": 1
+        },
+        {
+          "label": "BPM",
+          "nodes": [
+            94
+          ],
+          "widget": "bpm",
+          "kind": null,
+          "help": "",
+          "advanced": false,
+          "min": 40,
+          "max": 220,
+          "step": 1
+        },
+        {
+          "label": "Semilla",
+          "nodes": [
+            94,
+            3
+          ],
+          "widget": "seed",
+          "kind": "seed",
+          "help": "",
+          "advanced": false
+        },
+        {
+          "label": "Idioma de la letra",
+          "nodes": [
+            94
+          ],
+          "widget": "language",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Tonalidad",
+          "nodes": [
+            94
+          ],
+          "widget": "keyscale",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Compás",
+          "nodes": [
+            94
+          ],
+          "widget": "timesignature",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "Pasos",
+          "nodes": [
+            3
+          ],
+          "widget": "steps",
+          "kind": null,
+          "help": "",
+          "advanced": true
+        },
+        {
+          "label": "CFG",
+          "nodes": [
+            3
+          ],
+          "widget": "cfg",
+          "kind": null,
+          "help": "Rápido: 1 · Calidad XL: 7",
+          "advanced": true
+        }
+      ],
+      "inputs": [],
+      "outputNodes": [
+        106
+      ],
+      "models": [
+        "ace_step_1.5_turbo_aio.safetensors",
+        "acestep_v1.5_xl_sft_bf16.safetensors",
+        "qwen_0.6b_ace15.safetensors",
+        "qwen_4b_ace15.safetensors",
+        "ace_1.5_vae.safetensors"
+      ],
+      "nodeTypes": [
+        "CheckpointLoaderSimple",
+        "ComfySwitchNode",
+        "ConditioningZeroOut",
+        "DualCLIPLoader",
+        "EmptyAceStep1.5LatentAudio",
+        "KSampler",
+        "ModelSamplingAuraFlow",
+        "PrimitiveBoolean",
+        "PrimitiveFloat",
+        "SaveAudioMP3",
+        "TextEncodeAceStepAudio1.5",
+        "UNETLoader",
+        "VAEDecodeAudio",
+        "VAELoader"
+      ],
+      "providers": [
+        "comfy-core"
+      ]
+    }
+  ]
+}
