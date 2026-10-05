@@ -76,7 +76,7 @@ function jsonDownload(name,data) { downloadBlob(name,new Blob([JSON.stringify(da
 function downloadBlob(name,blob) { const u=URL.createObjectURL(blob),a=el('a',{href:u,download:name});a.click();setTimeout(()=>URL.revokeObjectURL(u),1000); }
 function viewURL(f) { const q=new URLSearchParams({filename:f.filename,subfolder:f.subfolder || '',type:f.type || 'output'});return api.apiURL(`/view?${q}`); }
 function inputURL(name) {const parts=name.replaceAll('\\','/').split('/');return viewURL({filename:parts.pop(),subfolder:parts.join('/'),type:'input'});}
-async function fetchJSON(url, options) {const r=await fetch(url,options);if(!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);return r.json();}
+async function fetchJSON(url, options) {const r=await fetch(url,{cache:'no-store',...options});if(!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);return r.json();}
 async function objectInfo(refresh=false) {if(refresh || !infoCache)infoCache=await (await api.fetchApi('/object_info')).json();return infoCache;}
 function remember() {
   if(current && graphID()===current.id) snapshots.set(current.id, app.graph.serialize());
