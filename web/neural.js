@@ -15,7 +15,12 @@ const outputLabels = {'los_sectores':{'45':'Prompt usado','8':'Imagen'},'el_esca
 const busyInputs = new Set();
 // ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
 let ziLoras = null, ziLoading = false, ziAviso = false;
-let coverMode = false;   // portada del módulo (como en La Casa Maldita): se ve al entrar desde El Nexo
+let coverMode = false;
+// un grafo guardado (sesión anterior o pestaña abierta) está desfasado si es de otra versión o le falta algún nodo que usa el panel
+function staleGraph(g,m){if(!g?.nodes)return true;const v=g.extra?.neural_underground?.version;if(m.version&&v&&v!==m.version)return true;
+  const need=new Set([...m.controls.flatMap(c=>c.nodes),...(m.inputs||[]).map(i=>i.node),...(m.outputNodes||[])].map(Number));
+  const have=new Set(g.nodes.map(n=>Number(n.id)));for(const id of need)if(!have.has(id))return true;return false;}
+   // portada del módulo (como en La Casa Maldita): se ve al entrar desde El Nexo
 async function loadZiLoras(){if(ziLoading)return;ziLoading=true;try{ziLoras=await (await api.fetchApi('/neural_underground/loras_zimage')).json();}catch{ziLoras={};}finally{ziLoading=false;}}
 const loraBase = v => String(v||'').replaceAll('\\','/').split('/').pop();
 const loraLabel = v => loraBase(v).replace(/\.safetensors$/i,'');
@@ -115,7 +120,7 @@ function makeShell() {
 }
 async function launch() {
   try {if(!catalog){catalog=await fetchJSON(new URL('catalog.json',BASE));restoreSession();}makeShell();root.hidden=false;place();
-    const m=findModule(graphID());if(m){if(m.id==='el_escaner'&&getNode(5)?.type==='LayerUtility: Florence2Image2Prompt'){await openModule(m);return;}current=m;renderModule();}else renderHome();
+    const m=findModule(graphID());if(m){if(staleGraph(app.graph.serialize(),m)){snapshots.delete(m.id);await openModule(m);message(`${m.title}: actualizado a la versión nueva del módulo.`);return;}current=m;renderModule();}else renderHome();
   }catch(e){console.error(e);alert(`Neural: ${e.message}`);}
 }
 function renderHome() {
@@ -132,7 +137,8 @@ async function openModule(m, transfer=null) {
   try {
     const oldID=graphID();if(oldID && findModule(oldID))snapshots.set(oldID,app.graph.serialize());
     else if(!externalGraph)externalGraph=app.graph.serialize();
-    const g=structuredClone(snapshots.get(m.id)||await fetchJSON(new URL(`workflows/${m.file}`,BASE)));
+    let snap=snapshots.get(m.id);if(snap&&staleGraph(snap,m)){snapshots.delete(m.id);snap=null;}
+    const g=structuredClone(snap||await fetchJSON(new URL(`workflows/${m.file}`,BASE)));
     const info=await objectInfo();
     for(const n of g.nodes){const schema=info[n.type]?.input||{},options=Object.values({...schema.required,...schema.optional}).flatMap(spec=>Array.isArray(spec[0])?spec[0]:spec[1]?.options||[]);
       // modelos: si no está en la ruta exacta, se busca por nombre de archivo en cualquier subcarpeta (p. ej. loras/ZImage/…)
@@ -493,5 +499,5 @@ app.registerExtension({
     events();
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
   },
-  async afterConfigureGraph(){if(opening||!catalog)return;const m=findModule(graphID());if(m){current=m;if(root&&!root.hidden)renderModule();}else{current=null;if(root&&!root.hidden)renderHome();}}
+  async afterConfigureGraph(){if(opening||!catalog)return;const m=findModule(graphID());if(m){if(root&&!root.hidden&&staleGraph(app.graph.serialize(),m)){snapshots.delete(m.id);await openModule(m);return;}current=m;if(root&&!root.hidden)renderModule();}else{current=null;if(root&&!root.hidden)renderHome();}}
 });
