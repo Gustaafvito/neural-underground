@@ -288,6 +288,16 @@
           "advanced": false
         },
         {
+          "label": "Mejorar con IA",
+          "nodes": [
+            43
+          ],
+          "widget": "value",
+          "kind": null,
+          "advanced": false,
+          "help": "Qwen3-VL 8B reescribe tus textos en un prompt detallado respetando izquierda y derecha (+20-40 s). El prompt usado sale en los resultados."
+        },
+        {
           "label": "Anchura",
           "nodes": [
             5
@@ -334,24 +344,30 @@
       ],
       "inputs": [],
       "outputNodes": [
-        8
+        8,
+        45
       ],
       "models": [
         "qwen_image_2512_fp8_e4m3fn.safetensors",
         "Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors",
         "qwen_2.5_vl_7b_fp8_scaled.safetensors",
-        "qwen_image_vae.safetensors"
+        "qwen_image_vae.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors"
       ],
       "nodeTypes": [
         "CLIPLoader",
         "CLIPTextEncode",
+        "ComfySwitchNode",
         "EmptySD3LatentImage",
         "KSampler",
         "LoraLoaderModelOnly",
         "ModelSamplingAuraFlow",
+        "NUTextResult",
+        "PrimitiveBoolean",
         "PrimitiveStringMultiline",
         "SaveImage",
         "StringConcatenate",
+        "TextGenerate",
         "UNETLoader",
         "VAEDecode",
         "VAELoader"

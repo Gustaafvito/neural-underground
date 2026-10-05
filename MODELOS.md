@@ -34,6 +34,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 | `qwen_image_2512_fp8_e4m3fn.safetensors` | `diffusion_models` | 20.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors) |
 | `Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors` | `loras` | 0.8 GB | [⬇](https://huggingface.co/lightx2v/Qwen-Image-2512-Lightning/resolve/main/Qwen-Image-2512-Lightning-8steps-V1.0-bf16.safetensors) |
 | `qwen_2.5_vl_7b_fp8_scaled.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
 | `qwen_image_vae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors) |
 
 ### 04 · La Fuga

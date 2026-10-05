@@ -11,7 +11,7 @@ const removedResults = new Set(), hiddenJobs = new Set();
 let lastCleanup = null;
 const resultKey = item => JSON.stringify([item.promptID,item.node,item.file?.type,item.file?.subfolder,item.file?.filename,item.text]);
 const storageKey = 'neural-underground-session-v1';
-const outputLabels = {'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform'}};
+const outputLabels = {'los_sectores':{'45':'Prompt usado','8':'Imagen'},'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform'}};
 const busyInputs = new Set();
 // ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
 let ziLoras = null, ziLoading = false, ziAviso = false;

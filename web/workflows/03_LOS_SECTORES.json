@@ -1,6 +1,6 @@
 {
-  "last_node_id": 27,
-  "last_link_id": 16,
+  "last_node_id": 45,
+  "last_link_id": 23,
   "nodes": [
     {
       "id": 1,
@@ -110,8 +110,8 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            7,
-            9
+            14,
+            16
           ],
           "slot_index": 0
         }
@@ -153,7 +153,7 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            15
+            22
           ],
           "slot_index": 0
         }
@@ -199,7 +199,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            10
+            17
           ],
           "slot_index": 0
         }
@@ -401,7 +401,8 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            8
+            7,
+            12
           ],
           "slot_index": 0
         }
@@ -417,6 +418,284 @@
       "title": "Une + derecha"
     },
     {
+      "id": 43,
+      "type": "PrimitiveBoolean",
+      "pos": [
+        380,
+        600
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "widgets_values": [
+        false
+      ],
+      "title": "Mejorar con IA"
+    },
+    {
+      "id": 40,
+      "type": "CLIPLoader",
+      "pos": [
+        760,
+        600
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "stable_diffusion",
+        "default"
+      ],
+      "title": "Mejora · Qwen3-VL 8B"
+    },
+    {
+      "id": 41,
+      "type": "StringConcatenate",
+      "pos": [
+        760,
+        750
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "You are a prompt writer for a text-to-image model. Rewrite the scene below as ONE rich, vivid English prompt of 80 to 120 words for a single wide image. Keep the placement exactly: say clearly what is on the left side of the image and what is on the right side, and do not mix them. Add lighting, materials, colors, mood, camera angle and lens. Output only the prompt, without any introduction, title or quotes.\n\nScene:",
+        null,
+        "\n\n"
+      ],
+      "title": "Mejora · instrucción + escena"
+    },
+    {
+      "id": 42,
+      "type": "TextGenerate",
+      "pos": [
+        1140,
+        600
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 8
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 9
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "system_prompt",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            11
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "thinking",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextGenerate"
+      },
+      "widgets_values": [
+        "",
+        320,
+        "on",
+        0.7,
+        20,
+        0.8,
+        0.0,
+        1.05,
+        0,
+        0.0,
+        false,
+        true,
+        "auto"
+      ],
+      "title": "Mejora · Qwen3-VL reescribe"
+    },
+    {
+      "id": 44,
+      "type": "ComfySwitchNode",
+      "pos": [
+        1140,
+        800
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 10
+        },
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 12
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            13,
+            15
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        null
+      ],
+      "title": "¿Prompt mejorado?"
+    },
+    {
+      "id": 45,
+      "type": "NUTextResult",
+      "pos": [
+        1520,
+        600
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "NUTextResult"
+      },
+      "widgets_values": [],
+      "title": "SECTORES · prompt usado"
+    },
+    {
       "id": 2,
       "type": "CLIPTextEncode",
       "pos": [
@@ -428,7 +707,7 @@
         140
       ],
       "flags": {},
-      "order": 10,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -437,12 +716,12 @@
           "widget": {
             "name": "text"
           },
-          "link": 8
+          "link": 15
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 7
+          "link": 14
         }
       ],
       "outputs": [
@@ -450,7 +729,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            11
+            18
           ],
           "slot_index": 0
         }
@@ -475,13 +754,13 @@
         140
       ],
       "flags": {},
-      "order": 11,
+      "order": 17,
       "mode": 0,
       "inputs": [
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 9
+          "link": 16
         }
       ],
       "outputs": [
@@ -489,7 +768,7 @@
           "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            12
+            19
           ],
           "slot_index": 0
         }
@@ -514,7 +793,7 @@
         140
       ],
       "flags": {},
-      "order": 12,
+      "order": 18,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -522,7 +801,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            13
+            20
           ],
           "slot_index": 0
         }
@@ -549,28 +828,28 @@
         140
       ],
       "flags": {},
-      "order": 13,
+      "order": 19,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 10
+          "link": 17
         },
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 11
+          "link": 18
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 12
+          "link": 19
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 13
+          "link": 20
         }
       ],
       "outputs": [
@@ -578,7 +857,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            14
+            21
           ],
           "slot_index": 0
         }
@@ -609,18 +888,18 @@
         140
       ],
       "flags": {},
-      "order": 14,
+      "order": 20,
       "mode": 0,
       "inputs": [
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 14
+          "link": 21
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 15
+          "link": 22
         }
       ],
       "outputs": [
@@ -628,7 +907,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            16
+            23
           ],
           "slot_index": 0
         }
@@ -651,13 +930,13 @@
         140
       ],
       "flags": {},
-      "order": 15,
+      "order": 21,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 16
+          "link": 23
         }
       ],
       "outputs": [
@@ -728,6 +1007,62 @@
     ],
     [
       7,
+      14,
+      0,
+      41,
+      0,
+      "STRING"
+    ],
+    [
+      8,
+      40,
+      0,
+      42,
+      0,
+      "CLIP"
+    ],
+    [
+      9,
+      41,
+      0,
+      42,
+      1,
+      "STRING"
+    ],
+    [
+      10,
+      43,
+      0,
+      44,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      11,
+      42,
+      0,
+      44,
+      2,
+      "STRING"
+    ],
+    [
+      12,
+      14,
+      0,
+      44,
+      1,
+      "STRING"
+    ],
+    [
+      13,
+      44,
+      0,
+      45,
+      0,
+      "*"
+    ],
+    [
+      14,
       21,
       0,
       2,
@@ -735,15 +1070,15 @@
       "CLIP"
     ],
     [
-      8,
-      14,
+      15,
+      44,
       0,
       2,
       0,
-      "STRING"
+      "*"
     ],
     [
-      9,
+      16,
       21,
       0,
       27,
@@ -751,7 +1086,7 @@
       "CLIP"
     ],
     [
-      10,
+      17,
       20,
       0,
       4,
@@ -759,7 +1094,7 @@
       "MODEL"
     ],
     [
-      11,
+      18,
       2,
       0,
       4,
@@ -767,7 +1102,7 @@
       "CONDITIONING"
     ],
     [
-      12,
+      19,
       27,
       0,
       4,
@@ -775,7 +1110,7 @@
       "CONDITIONING"
     ],
     [
-      13,
+      20,
       5,
       0,
       4,
@@ -783,7 +1118,7 @@
       "LATENT"
     ],
     [
-      14,
+      21,
       4,
       0,
       7,
@@ -791,7 +1126,7 @@
       "LATENT"
     ],
     [
-      15,
+      22,
       22,
       0,
       7,
@@ -799,7 +1134,7 @@
       "VAE"
     ],
     [
-      16,
+      23,
       7,
       0,
       8,
