@@ -86,12 +86,22 @@
         {
           "label": "Descripción",
           "nodes": [
-            6
+            140
           ],
-          "widget": "text",
+          "widget": "value",
           "kind": "text",
           "help": "",
           "advanced": false
+        },
+        {
+          "label": "Mejorar con IA",
+          "nodes": [
+            141
+          ],
+          "widget": "value",
+          "kind": null,
+          "advanced": false,
+          "help": "Qwen3-VL 8B reescribe tu texto en un prompt detallado (+20-40 s). El prompt usado sale en los resultados."
         },
         {
           "label": "Implante A · LoRA",
@@ -196,27 +206,35 @@
       ],
       "inputs": [],
       "outputNodes": [
-        9
+        9,
+        146
       ],
       "models": [
         "z_image_turbo_bf16.safetensors",
         "qwen_3_4b.safetensors",
         "ae.safetensors",
         "ZImage/cyberNoirDetective.safetensors",
-        "ZImage/REDZ15_DetailDaemonZ_lora_v1.1.safetensors"
+        "ZImage/REDZ15_DetailDaemonZ_lora_v1.1.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors"
       ],
       "nodeTypes": [
-        "UNETLoader",
         "CLIPLoader",
-        "VAELoader",
-        "LoraLoaderModelOnly",
-        "ModelSamplingAuraFlow",
         "CLIPTextEncode",
+        "ComfySwitchNode",
         "ConditioningZeroOut",
         "EmptySD3LatentImage",
         "KSampler",
+        "LoraLoaderModelOnly",
+        "ModelSamplingAuraFlow",
+        "NUTextResult",
+        "PrimitiveBoolean",
+        "PrimitiveStringMultiline",
+        "SaveImage",
+        "StringConcatenate",
+        "TextGenerate",
+        "UNETLoader",
         "VAEDecode",
-        "SaveImage"
+        "VAELoader"
       ],
       "providers": [],
       "loraTriggers": {
@@ -225,25 +243,25 @@
       },
       "sorpresas": [
         {
-          "6:text": "cinematic film noir photo of a detective in a trench coat under a flickering neon sign, rain-soaked street at night, hard shadows, cigarette smoke, 35mm grain"
+          "140:value": "cinematic film noir photo of a detective in a trench coat under a flickering neon sign, rain-soaked street at night, hard shadows, cigarette smoke, 35mm grain"
         },
         {
-          "6:text": "portrait of a cyborg street samurai with a cracked chrome mask, wet asphalt reflections, teal and magenta neon, shallow depth of field"
+          "140:value": "portrait of a cyborg street samurai with a cracked chrome mask, wet asphalt reflections, teal and magenta neon, shallow depth of field"
         },
         {
-          "6:text": "a lonely diner at 3am on an empty highway, warm interior light, a waitress looking out of the window, fog outside, cinematic wide shot"
+          "140:value": "a lonely diner at 3am on an empty highway, warm interior light, a waitress looking out of the window, fog outside, cinematic wide shot"
         },
         {
-          "6:text": "an old lighthouse keeper reading by an oil lamp during a storm, waves crashing against the windows, moody chiaroscuro lighting"
+          "140:value": "an old lighthouse keeper reading by an oil lamp during a storm, waves crashing against the windows, moody chiaroscuro lighting"
         },
         {
-          "6:text": "close-up of a woman with silver freckles and holographic eyeliner, soft studio light, ultra detailed skin texture"
+          "140:value": "close-up of a woman with silver freckles and holographic eyeliner, soft studio light, ultra detailed skin texture"
         },
         {
-          "6:text": "abandoned subway station overtaken by glowing bioluminescent plants, dust in the light beams, quiet and eerie"
+          "140:value": "abandoned subway station overtaken by glowing bioluminescent plants, dust in the light beams, quiet and eerie"
         },
         {
-          "6:text": "a street food vendor in a crowded night market, steam rising from the pots, paper lanterns, vivid colors, candid photo"
+          "140:value": "a street food vendor in a crowded night market, steam rising from the pots, paper lanterns, vivid colors, candid photo"
         }
       ]
     },
@@ -781,12 +799,22 @@
         {
           "label": "Descripción común",
           "nodes": [
-            6
+            140
           ],
-          "widget": "text",
+          "widget": "value",
           "kind": "text",
           "help": "",
           "advanced": false
+        },
+        {
+          "label": "Mejorar con IA",
+          "nodes": [
+            141
+          ],
+          "widget": "value",
+          "kind": null,
+          "advanced": false,
+          "help": "Qwen3-VL 8B reescribe tu texto en un prompt detallado (+20-40 s). El prompt usado sale en los resultados."
         },
         {
           "label": "Semilla común",
@@ -857,44 +885,52 @@
         15,
         26,
         27,
-        31
+        31,
+        146
       ],
       "models": [
         "z_image_turbo_bf16.safetensors",
         "qwen_3_4b.safetensors",
-        "ae.safetensors"
+        "ae.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors"
       ],
       "nodeTypes": [
-        "UNETLoader",
         "CLIPLoader",
-        "VAELoader",
-        "ModelSamplingAuraFlow",
         "CLIPTextEncode",
+        "ComfySwitchNode",
         "ConditioningZeroOut",
         "EmptySD3LatentImage",
         "KSampler",
+        "ModelSamplingAuraFlow",
+        "NUTextResult",
+        "PrimitiveBoolean",
+        "PrimitiveStringMultiline",
+        "SaveImage",
+        "StringConcatenate",
+        "TextGenerate",
+        "UNETLoader",
         "VAEDecode",
-        "SaveImage"
+        "VAELoader"
       ],
       "providers": [],
       "sorpresas": [
         {
-          "6:text": "portrait of an elderly fisherman with a weathered face and a yellow raincoat, harbor in the background, overcast light"
+          "140:value": "portrait of an elderly fisherman with a weathered face and a yellow raincoat, harbor in the background, overcast light"
         },
         {
-          "6:text": "a glass of whiskey on a wooden bar counter, dramatic side light, bokeh lights in the background, product photography"
+          "140:value": "a glass of whiskey on a wooden bar counter, dramatic side light, bokeh lights in the background, product photography"
         },
         {
-          "6:text": "a red fox standing in fresh snow in a birch forest, morning sun, wildlife photography"
+          "140:value": "a red fox standing in fresh snow in a birch forest, morning sun, wildlife photography"
         },
         {
-          "6:text": "a futuristic motorcycle parked in a neon-lit garage, reflections on the glossy floor"
+          "140:value": "a futuristic motorcycle parked in a neon-lit garage, reflections on the glossy floor"
         },
         {
-          "6:text": "a bowl of ramen with steam rising, chopsticks, dark wooden table, top-down food photography"
+          "140:value": "a bowl of ramen with steam rising, chopsticks, dark wooden table, top-down food photography"
         },
         {
-          "6:text": "an astronaut sitting on a bench in a quiet park, autumn leaves falling, cinematic"
+          "140:value": "an astronaut sitting on a bench in a quiet park, autumn leaves falling, cinematic"
         }
       ]
     },
@@ -911,12 +947,22 @@
         {
           "label": "Describe la transición",
           "nodes": [
-            6
+            140
           ],
-          "widget": "text",
+          "widget": "value",
           "kind": "text",
           "help": "",
           "advanced": false
+        },
+        {
+          "label": "Mejorar con IA",
+          "nodes": [
+            141
+          ],
+          "widget": "value",
+          "kind": null,
+          "advanced": false,
+          "help": "Qwen3-VL 8B mira tu foto de inicio y reescribe tu texto en un prompt detallado (+20-40 s). El prompt usado sale en los resultados."
         },
         {
           "label": "Anchura",
@@ -984,7 +1030,8 @@
         }
       ],
       "outputNodes": [
-        61
+        61,
+        146
       ],
       "models": [
         "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
@@ -992,17 +1039,24 @@
         "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
         "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors",
         "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
-        "wan_2.1_vae.safetensors"
+        "wan_2.1_vae.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors"
       ],
       "nodeTypes": [
         "CLIPLoader",
         "CLIPTextEncode",
+        "ComfySwitchNode",
         "CreateVideo",
         "KSamplerAdvanced",
         "LoadImage",
         "LoraLoaderModelOnly",
         "ModelSamplingSD3",
+        "NUTextResult",
+        "PrimitiveBoolean",
+        "PrimitiveStringMultiline",
         "SaveVideo",
+        "StringConcatenate",
+        "TextGenerate",
         "UNETLoader",
         "VAEDecode",
         "VAELoader",
@@ -1013,19 +1067,19 @@
       ],
       "sorpresas": [
         {
-          "6:text": "The camera slowly moves forward as the first scene transforms smoothly into the second one, cinematic and fluid."
+          "140:value": "The camera slowly moves forward as the first scene transforms smoothly into the second one, cinematic and fluid."
         },
         {
-          "6:text": "The subject turns around slowly while the lighting shifts from day to night, smooth continuous motion."
+          "140:value": "The subject turns around slowly while the lighting shifts from day to night, smooth continuous motion."
         },
         {
-          "6:text": "A gentle morph between both images, particles of light drifting through the scene, slow and dreamy."
+          "140:value": "A gentle morph between both images, particles of light drifting through the scene, slow and dreamy."
         },
         {
-          "6:text": "The camera orbits around the subject while the environment changes seamlessly, cinematic transition."
+          "140:value": "The camera orbits around the subject while the environment changes seamlessly, cinematic transition."
         },
         {
-          "6:text": "The person walks towards the camera and the background dissolves into the second scene, natural motion."
+          "140:value": "The person walks towards the camera and the background dissolves into the second scene, natural motion."
         }
       ]
     },
@@ -1042,12 +1096,22 @@
         {
           "label": "Acción de la escena",
           "nodes": [
-            107
+            140
           ],
-          "widget": "text",
+          "widget": "value",
           "kind": "text",
           "help": "",
           "advanced": false
+        },
+        {
+          "label": "Mejorar con IA",
+          "nodes": [
+            141
+          ],
+          "widget": "value",
+          "kind": null,
+          "advanced": false,
+          "help": "Qwen3-VL 8B mira tu foto de inicio y reescribe tu texto en un prompt detallado (+20-40 s). El prompt usado sale en los resultados."
         },
         {
           "label": "Movimiento de cámara",
@@ -1122,7 +1186,8 @@
         }
       ],
       "outputNodes": [
-        106
+        106,
+        146
       ],
       "models": [
         "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
@@ -1130,16 +1195,23 @@
         "wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors",
         "wan_2.1_vae.safetensors",
         "wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
-        "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors"
+        "wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors",
+        "qwen3vl_8b_int8_convrot.safetensors"
       ],
       "nodeTypes": [
         "CLIPLoader",
         "CLIPTextEncode",
+        "ComfySwitchNode",
         "CreateVideo",
         "KSamplerAdvanced",
         "LoadImage",
         "ModelSamplingSD3",
+        "NUTextResult",
+        "PrimitiveBoolean",
+        "PrimitiveStringMultiline",
         "SaveVideo",
+        "StringConcatenate",
+        "TextGenerate",
         "UNETLoader",
         "VAEDecode",
         "VAELoader",
@@ -1151,28 +1223,28 @@
       ],
       "sorpresas": [
         {
-          "107:text": "The character stands still while wind moves the hair and clothes, dust particles floating in the light.",
-          "108:camera_pose": "Zoom In"
+          "108:camera_pose": "Zoom In",
+          "140:value": "The character stands still while wind moves the hair and clothes, dust particles floating in the light."
         },
         {
-          "107:text": "The city lights flicker as rain starts falling, steam rising from the street.",
-          "108:camera_pose": "Pan Right"
+          "108:camera_pose": "Pan Right",
+          "140:value": "The city lights flicker as rain starts falling, steam rising from the street."
         },
         {
-          "107:text": "The character slowly turns the head towards the camera and blinks, cinematic mood.",
-          "108:camera_pose": "Static"
+          "108:camera_pose": "Static",
+          "140:value": "The character slowly turns the head towards the camera and blinks, cinematic mood."
         },
         {
-          "107:text": "Leaves swirl around the scene in a gentle breeze, warm sunset light.",
-          "108:camera_pose": "ClockWise (CW)"
+          "108:camera_pose": "ClockWise (CW)",
+          "140:value": "Leaves swirl around the scene in a gentle breeze, warm sunset light."
         },
         {
-          "107:text": "Fog rolls in slowly while neon signs buzz and flicker in the background.",
-          "108:camera_pose": "Zoom Out"
+          "108:camera_pose": "Zoom Out",
+          "140:value": "Fog rolls in slowly while neon signs buzz and flicker in the background."
         },
         {
-          "107:text": "Birds fly across the sky as the clouds move fast, epic landscape.",
-          "108:camera_pose": "Pan Up"
+          "108:camera_pose": "Pan Up",
+          "140:value": "Birds fly across the sky as the clouds move fast, epic landscape."
         }
       ]
     },

@@ -11,7 +11,7 @@ const removedResults = new Set(), hiddenJobs = new Set();
 let lastCleanup = null;
 const resultKey = item => JSON.stringify([item.promptID,item.node,item.file?.type,item.file?.subfolder,item.file?.filename,item.text]);
 const storageKey = 'neural-underground-session-v1';
-const outputLabels = {'los_sectores':{'45':'Prompt usado','8':'Imagen'},'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform'}};
+const outputLabels = {'los_sectores':{'45':'Prompt usado','8':'Imagen'},'el_implante':{'146':'Prompt usado'},'el_puente':{'146':'Prompt usado'},'la_orbita':{'146':'Prompt usado'},'el_escaner':{'3':'Mapa de pose'},'el_aislante':{'20':'Máscara','21':'Recorte con transparencia'},'el_doble':{'15':'res_multistep · simple','26':'Euler · simple','27':'Euler ancestral · beta','31':'DPM++ 2M · sgm_uniform','146':'Prompt usado'}};
 const busyInputs = new Set();
 // ── El Implante: solo LoRAs de Z-Image (los detecta el servidor) y palabra clave automática en la descripción ──
 let ziLoras = null, ziLoading = false, ziAviso = false;
@@ -31,11 +31,12 @@ function withTrigger(text,t,add){
   text=text.replace(new RegExp(`^\\s*${esc}\\s*,?\\s*`,'i'),'').replace(new RegExp(`\\s*,\\s*${esc}(?=\\s*(,|$))`,'gi'),'');
   return add?(text.trim()?`${t}, ${text.trim()}`:t):text.trim();
 }
-function swapTrigger(oldLora,newLora,descNode=6){
-  const w=widget(descNode,'text');if(!w)return;let text=w.value;
+function swapTrigger(oldLora,newLora){
+  const c=(current?.controls||[]).find(c=>c.kind==='text');if(!c)return;const descNode=c.nodes[0],wn=c.widget;
+  const w=widget(descNode,wn);if(!w)return;let text=w.value;
   const a=loraTrigger(oldLora),b=loraTrigger(newLora);
   if(a&&a!==b)text=withTrigger(text,a,false);if(b)text=withTrigger(text,b,true);
-  if(text!==w.value)setWidget(descNode,'text',text);
+  if(text!==w.value)setWidget(descNode,wn,text);
 }
 
 function el(tag, attrs = {}, ...children) {

@@ -1,6 +1,6 @@
 {
-  "last_node_id": 31,
-  "last_link_id": 31,
+  "last_node_id": 146,
+  "last_link_id": 39,
   "nodes": [
     {
       "id": 4,
@@ -169,6 +169,14 @@
           "name": "clip",
           "type": "CLIP",
           "link": 2
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 39
         }
       ],
       "outputs": [
@@ -826,6 +834,298 @@
         "neural_underground/07_el_doble/31"
       ],
       "title": "DOBLE · guardar variante"
+    },
+    {
+      "id": 140,
+      "type": "PrimitiveStringMultiline",
+      "title": "Tu descripción",
+      "pos": [
+        -20,
+        400
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            32,
+            37
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "a cat wearing a tiny astronaut suit floating inside a retro spaceship cockpit, warm instrument lights, detailed fur, cinematic"
+      ]
+    },
+    {
+      "id": 141,
+      "type": "PrimitiveBoolean",
+      "title": "Mejorar con IA",
+      "pos": [
+        -20,
+        660
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "BOOLEAN",
+          "type": "BOOLEAN",
+          "links": [
+            35
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveBoolean"
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 142,
+      "type": "CLIPLoader",
+      "title": "Mejora · Qwen3-VL 8B",
+      "pos": [
+        -20,
+        780
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            33
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "stable_diffusion",
+        "default"
+      ]
+    },
+    {
+      "id": 143,
+      "type": "StringConcatenate",
+      "title": "Mejora · instrucción + texto",
+      "pos": [
+        380,
+        400
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "link": 32,
+          "widget": {
+            "name": "string_b"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            34
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "You are a prompt writer for a text-to-image model. Rewrite the description below as ONE rich, vivid English prompt of 60 to 100 words. Keep the subject, the style and every important detail the user asked for. Add lighting, materials, colors, mood, composition and camera or lens. If the text starts with a special keyword or name (for example a LoRA trigger word), keep it exactly as it is at the very beginning. Output only the prompt, without any introduction, title or quotes.\n\nDescription:",
+        null,
+        "\n\n"
+      ]
+    },
+    {
+      "id": 144,
+      "type": "TextGenerate",
+      "title": "Mejora · Qwen3-VL reescribe",
+      "pos": [
+        780,
+        400
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 33
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 34,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_text",
+          "type": "STRING",
+          "links": [
+            36
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "thinking",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextGenerate"
+      },
+      "widgets_values": [
+        "",
+        320,
+        "on",
+        0.7,
+        20,
+        0.8,
+        0.0,
+        1.05,
+        0,
+        0.0,
+        false,
+        true,
+        "auto"
+      ]
+    },
+    {
+      "id": 145,
+      "type": "ComfySwitchNode",
+      "title": "¿Prompt mejorado?",
+      "pos": [
+        780,
+        700
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "link": 35,
+          "widget": {
+            "name": "switch"
+          }
+        },
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 37
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            38,
+            39
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode"
+      },
+      "widgets_values": [
+        null
+      ]
+    },
+    {
+      "id": 146,
+      "type": "NUTextResult",
+      "title": "Prompt usado",
+      "pos": [
+        1180,
+        700
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 38
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "NUTextResult"
+      },
+      "widgets_values": []
     }
   ],
   "links": [
@@ -1076,6 +1376,70 @@
       31,
       0,
       "IMAGE"
+    ],
+    [
+      32,
+      140,
+      0,
+      143,
+      0,
+      "STRING"
+    ],
+    [
+      33,
+      142,
+      0,
+      144,
+      0,
+      "CLIP"
+    ],
+    [
+      34,
+      143,
+      0,
+      144,
+      1,
+      "STRING"
+    ],
+    [
+      35,
+      141,
+      0,
+      145,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      36,
+      144,
+      0,
+      145,
+      2,
+      "STRING"
+    ],
+    [
+      37,
+      140,
+      0,
+      145,
+      1,
+      "STRING"
+    ],
+    [
+      38,
+      145,
+      0,
+      146,
+      0,
+      "*"
+    ],
+    [
+      39,
+      145,
+      0,
+      6,
+      1,
+      "*"
     ]
   ],
   "groups": [],
