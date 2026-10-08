@@ -420,7 +420,7 @@
       "title": "La Fuga",
       "subtitle": "Expande los bordes · Qwen Image Edit 2511",
       "description": "Amplía el lienzo y genera contenido en los bordes añadidos. Es outpainting, no escalado de resolución.",
-      "risk": "Qwen Image Edit 2511 · 4 pasos. Solo se genera en los bordes nuevos; tu imagen original se conserva. Empieza con bordes de 128–400 px.",
+      "risk": "Qwen Image Edit 2511 · 4 pasos. El modelo trabaja a ~1 MP y luego tu imagen original se pega encima a tamaño completo: solo cambian los bordes nuevos. Describe qué hay fuera, no cambies de lugar. Empieza con bordes de 256–600 px.",
       "source": "27-flux_fill_outpaint_example.json",
       "file": "04_LA_FUGA.json",
       "controls": [
@@ -485,6 +485,17 @@
           "advanced": true
         },
         {
+          "label": "Megapíxeles de trabajo",
+          "nodes": [
+            46,
+            48
+          ],
+          "widget": "megapixels",
+          "kind": null,
+          "advanced": true,
+          "help": "Tamaño al que trabaja el modelo (1 recomendado). Más es más lento y no siempre mejor."
+        },
+        {
           "label": "Semilla",
           "nodes": [
             3
@@ -537,10 +548,17 @@
         "CLIPLoader",
         "DifferentialDiffusion",
         "FluxKontextMultiReferenceLatentMethod",
+        "GetImageSize",
+        "ImageCompositeMasked",
         "ImagePadForOutpaint",
+        "ImageScale",
+        "ImageScaleToTotalPixels",
+        "ImageToMask",
+        "InvertMask",
         "KSampler",
         "LoadImage",
         "LoraLoaderModelOnly",
+        "MaskToImage",
         "ModelSamplingAuraFlow",
         "PrimitiveStringMultiline",
         "SaveImage",
@@ -558,7 +576,7 @@
       "version": "2.2.0",
       "sorpresas": [
         {
-          "23:value": "the same scene continues naturally: more of the street, buildings and sky, same lighting and style"
+          "23:value": "the same place continues naturally beyond the frame, with the same lighting, colors and style"
         },
         {
           "23:value": "a vast misty landscape with distant mountains and soft morning light"
