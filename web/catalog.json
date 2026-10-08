@@ -675,11 +675,11 @@
           ],
           "widget": "megapixels",
           "kind": null,
-          "help": "Lado aproximado en píxeles (1024 ≈ 1 MP). 0 = tamaño original.",
+          "help": "1 = unos 1024×1024 (recomendado). Más es más lento y no siempre mejor.",
           "advanced": false,
-          "min": 0,
-          "max": 2048,
-          "step": 32
+          "min": 0.3,
+          "max": 2.5,
+          "step": 0.1
         },
         {
           "label": "Semilla",
@@ -698,9 +698,9 @@
           ],
           "widget": "steps",
           "kind": null,
-          "help": "",
+          "help": "Rápido usa 4 (Lightning); Calidad usa 30.",
           "advanced": true,
-          "min": 8,
+          "min": 1,
           "max": 50
         }
       ],
@@ -1278,11 +1278,11 @@
           ],
           "widget": "megapixels",
           "kind": null,
-          "help": "Lado aproximado en píxeles (1024 ≈ 1 MP).",
+          "help": "1 = unos 1024×1024 (recomendado). Más es más lento y no siempre mejor.",
           "advanced": false,
-          "min": 0,
-          "max": 2048,
-          "step": 32
+          "min": 0.3,
+          "max": 2.5,
+          "step": 0.1
         },
         {
           "label": "Semilla",
@@ -1301,9 +1301,9 @@
           ],
           "widget": "steps",
           "kind": null,
-          "help": "",
+          "help": "Rápido usa 4 (Lightning); Calidad usa 30.",
           "advanced": true,
-          "min": 8,
+          "min": 1,
           "max": 50
         }
       ],
