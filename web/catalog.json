@@ -604,7 +604,7 @@
       "title": "El Aislante",
       "subtitle": "Extrae el sujeto · PNG con alfa",
       "description": "Separa el sujeto del fondo y guarda un PNG transparente. El panel muestra un tablero para distinguir el canal alfa.",
-      "risk": "Requiere los nodos BiRefNet de ComfyUI y el modelo birefnet.safetensors.",
+      "risk": "Nodos nativos de ComfyUI (Quitar fondo) y el modelo birefnet.safetensors. El pelo y los bordes finos salen mejor con fondos que contrasten.",
       "source": "02-util_birefnet_remove_background.json",
       "file": "05_EL_AISLANTE.json",
       "controls": [
