@@ -272,7 +272,8 @@ function moduleTools(parent,m){
     const fast=getNode(109)?.mode!==4;
     bar.append(el('label',{},`Modo actual: ${fast?'Rápido · 4 pasos (~45 s)':'Calidad · 20 pasos (~3 min)'}`),btn('Rápido · 4 pasos',()=>speed(true)),btn('Calidad · 20 pasos',()=>speed(false)));
   }
-  if(['el_puente','la_orbita'].includes(m.id))bar.append(btn('Prueba corta · 33 fotogramas',()=>{for(const c of m.controls)if(c.widget==='length')for(const id of c.nodes)setWidget(id,c.widget,33);remember();renderModule();}));
+  if(['el_puente','la_orbita'].includes(m.id)){const dur=el('div',{class:'nu-presets'});dur.append(el('label',{},'Duración'));
+    for(const [t,f]of [['2 s · prueba',33],['3 s',49],['5 s',81]])dur.append(btn(t,()=>{for(const c of m.controls)if(c.widget==='length')for(const id of c.nodes)setWidget(id,c.widget,f);remember();renderModule();}));bar.append(dur);}
   if(bar.childNodes.length)parent.append(bar);
 }
 function refreshSummary(){
