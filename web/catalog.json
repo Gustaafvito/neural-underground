@@ -71,7 +71,8 @@
         "TextGenerate",
         "NUTextResult"
       ],
-      "providers": []
+      "providers": [],
+      "song": "Lo que ves"
     },
     {
       "id": "el_implante",
@@ -263,7 +264,8 @@
         {
           "140:value": "a street food vendor in a crowded night market, steam rising from the pots, paper lanterns, vivid colors, candid photo"
         }
-      ]
+      ],
+      "song": "Dos pieles"
     },
     {
       "id": "los_sectores",
@@ -430,7 +432,8 @@
           "11:value": "a girl with a transparent umbrella and a yellow raincoat",
           "12:value": "a businessman in a dark suit whose reflection in the puddle is a fox"
         }
-      ]
+      ],
+      "song": "Cada uno en su lugar"
     },
     {
       "id": "la_fuga",
@@ -614,7 +617,8 @@
         {
           "23:value": "the interior of a grand abandoned ballroom with chandeliers and broken windows"
         }
-      ]
+      ],
+      "song": "Más allá del borde"
     },
     {
       "id": "el_aislante",
@@ -664,7 +668,8 @@
       ],
       "providers": [
         "comfy-core"
-      ]
+      ],
+      "song": "Transparente"
     },
     {
       "id": "la_mutacion",
@@ -784,7 +789,8 @@
         {
           "2:prompt": "Transform the image into a Studio-style hand-painted anime frame with soft watercolor backgrounds. Keep the composition."
         }
-      ]
+      ],
+      "song": "Otro final"
     },
     {
       "id": "el_doble",
@@ -932,7 +938,8 @@
         {
           "140:value": "an astronaut sitting on a bench in a quiet park, autumn leaves falling, cinematic"
         }
-      ]
+      ],
+      "song": "Cuatro reflejos"
     },
     {
       "id": "el_puente",
@@ -1081,7 +1088,8 @@
         {
           "140:value": "The person walks towards the camera and the background dissolves into the second scene, natural motion."
         }
-      ]
+      ],
+      "song": "Cruza el tiempo"
     },
     {
       "id": "la_orbita",
@@ -1246,7 +1254,8 @@
           "140:value": "Birds fly across the sky as the clouds move fast, epic landscape.",
           "108:camera_pose": "Pan Up"
         }
-      ]
+      ],
+      "song": "Alrededor"
     },
     {
       "id": "el_cronista",
@@ -1321,7 +1330,8 @@
       ],
       "providers": [
         "comfy-core"
-      ]
+      ],
+      "song": "Más lento"
     },
     {
       "id": "el_sastre",
@@ -1421,7 +1431,8 @@
       "providers": [
         "comfy-core"
       ],
-      "version": "2.2.0"
+      "version": "2.2.0",
+      "song": "Vísteme de neón"
     },
     {
       "id": "el_compositor",
@@ -1621,7 +1632,9 @@
           "94:language": "en",
           "94:lyrics": "[Instrumental]"
         }
-      ]
+      ],
+      "song": "Bajo la ciudad"
     }
-  ]
+  ],
+  "themeSong": "Señal Subterránea"
 }

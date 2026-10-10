@@ -157,7 +157,7 @@ async function launch() {
 }
 function renderHome() {
   root.hidden=false;place();body.replaceChildren();playMusic('tema_neural.mp3',0.35,true);
-  body.append(el('div',{class:'nu-hero'},el('div',{class:'nu-eyebrow'},`EL NEXO · ${catalog.modules.length} ESPECIALISTAS`),el('h1',{},'NEURAL ',el('span',{},'UNDERGROUND')),el('p',{},'Tu laboratorio bajo la ciudad. Analiza, transforma y conecta tus resultados: elige un especialista para abrir sus herramientas.'),el('i',{class:'nu-line'})));
+  body.append(el('div',{class:'nu-hero'},el('div',{class:'nu-eyebrow'},`EL NEXO · ${catalog.modules.length} ESPECIALISTAS`),el('h1',{},'NEURAL ',el('span',{},'UNDERGROUND')),el('p',{},'Tu laboratorio bajo la ciudad. Analiza, transforma y conecta tus resultados: elige un especialista para abrir sus herramientas.'),catalog.themeSong?el('div',{class:'nu-song'},`♪ «${catalog.themeSong}»`):'',el('i',{class:'nu-line'})));
   const grid=el('div',{class:'nu-grid'});
   for(const m of catalog.modules)grid.append(el('button',{class:'nu-card',type:'button',title:`Abrir ${m.title}`,onclick:()=>{coverMode=true;openModule(m);}},el('div',{class:'nu-card-art'},art(m),el('span',{class:'nu-num'},String(m.index).padStart(2,'0'))),el('div',{class:'nu-card-copy'},el('div',{class:'nu-card-tag'},'Acceso al módulo'),el('h2',{},m.title),el('p',{},m.subtitle))));
   body.append(grid,el('p',{class:'nu-note',style:{marginTop:'22px'}},'Los modelos se ejecutan en tu ComfyUI. Cada módulo comprueba sus nodos y modelos; el pack no instala ni descarga dependencias automáticamente.'));
@@ -327,7 +327,7 @@ function renderCover(m){
   const card=el('div',{class:'nu-cover',role:'button',tabindex:'0',title:`Entrar en ${m.title}`,onclick:enter,onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enter();}}},
     el('div',{class:'nu-cover-art'},art(m),el('div',{class:'nu-cover-scan'})),
     el('div',{class:'nu-cover-info'},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),
-      el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),el('div',{class:'nu-cover-hint'},'▶ pulsa para entrar')));
+      el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),m.song?el('div',{class:'nu-song'},`♪ «${m.song}»`):'',el('div',{class:'nu-cover-hint'},'▶ pulsa para entrar')));
   body.append(card);setTimeout(()=>card.focus(),0);
 }
 function renderModule() {
