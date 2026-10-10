@@ -1018,13 +1018,13 @@
       "inputs": [
         {
           "label": "Fotograma inicial",
-          "node": 62,
+          "node": 68,
           "widget": "image",
           "kind": "image"
         },
         {
           "label": "Fotograma final",
-          "node": 68,
+          "node": 62,
           "widget": "image",
           "kind": "image"
         }

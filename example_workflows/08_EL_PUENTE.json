@@ -192,7 +192,8 @@
       "widgets_values": [
         "example.png",
         "image"
-      ]
+      ],
+      "title": "Fotograma inicial"
     },
     {
       "id": 60,
@@ -1338,7 +1339,8 @@
       "widgets_values": [
         "example.png",
         "image"
-      ]
+      ],
+      "title": "Fotograma final"
     },
     {
       "id": 140,
