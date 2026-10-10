@@ -940,7 +940,7 @@
       "title": "El Puente",
       "subtitle": "Vídeo entre dos fotogramas",
       "description": "Wan 2.2 FLF2V con rama LightX2V de cuatro pasos. Condiciona el principio y el final del clip con tus dos imágenes.",
-      "risk": "Dos modelos de 14B y dos LoRAs. No se garantiza que quepa en 16 GB; requiere prueba local.",
+      "risk": "Wan 2.2 14B (dos modelos) + LoRAs Lightning · probado en 16 GB: ~1-1,5 min para 3 s. Usa dos fotos de la misma escena con el mismo encuadre; las imágenes transparentes pierden el fondo.",
       "source": "02-video_wan2_2_14b_flf2v.json",
       "file": "08_EL_PUENTE.json",
       "controls": [
