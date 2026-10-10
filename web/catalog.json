@@ -1223,28 +1223,28 @@
       ],
       "sorpresas": [
         {
-          "108:camera_pose": "Zoom In",
-          "140:value": "The character stands still while wind moves the hair and clothes, dust particles floating in the light."
+          "140:value": "The character stands still while wind moves the hair and clothes, dust particles floating in the light.",
+          "108:camera_pose": "Zoom In"
         },
         {
-          "108:camera_pose": "Pan Right",
-          "140:value": "The city lights flicker as rain starts falling, steam rising from the street."
+          "140:value": "The city lights flicker as rain starts falling, steam rising from the street.",
+          "108:camera_pose": "Pan Right"
         },
         {
-          "108:camera_pose": "Static",
-          "140:value": "The character slowly turns the head towards the camera and blinks, cinematic mood."
+          "140:value": "The character slowly turns the head towards the camera and blinks, cinematic mood.",
+          "108:camera_pose": "Static"
         },
         {
-          "108:camera_pose": "ClockWise (CW)",
-          "140:value": "Leaves swirl around the scene in a gentle breeze, warm sunset light."
+          "140:value": "Leaves swirl around the scene in a gentle breeze, warm sunset light.",
+          "108:camera_pose": "ClockWise (CW)"
         },
         {
-          "108:camera_pose": "Zoom Out",
-          "140:value": "Fog rolls in slowly while neon signs buzz and flicker in the background."
+          "140:value": "Fog rolls in slowly while neon signs buzz and flicker in the background.",
+          "108:camera_pose": "Zoom Out"
         },
         {
-          "108:camera_pose": "Pan Up",
-          "140:value": "Birds fly across the sky as the clouds move fast, epic landscape."
+          "140:value": "Birds fly across the sky as the clouds move fast, epic landscape.",
+          "108:camera_pose": "Pan Up"
         }
       ]
     },
@@ -1573,31 +1573,52 @@
       ],
       "sorpresas": [
         {
-          "94:tags": "dark synthwave, cyberpunk, 100 BPM, pulsing analog bass, gated drums, shimmering arpeggios, female vocals, melancholic, cinematic",
-          "94:lyrics": "[Verse]\nNeon rivers in the rain\nI keep running from my name\n[Chorus]\nWe are ghosts inside the machine\nGlowing louder than a dream"
+          "94:tags": "dark synthwave, cyberpunk, pulsing analog bass, gated drums, shimmering arpeggios, atmospheric pads, female vocals, melancholic, cinematic",
+          "94:bpm": 100,
+          "94:keyscale": "A minor",
+          "94:language": "en",
+          "94:lyrics": "[Verse]\nNeon rivers in the rain\nI keep running from my name\nEvery screen remembers me\nEvery shadow holds the key\n\n[Chorus]\nWe are ghosts inside the machine\nGlowing louder than a dream\nHold on, the signal's alive\nWe are ghosts, we survive\n\n[Verse]\nCables humming in the dark\nOne last city, one last spark\n\n[Chorus]\nWe are ghosts inside the machine\nGlowing louder than a dream"
         },
         {
-          "94:tags": "lo-fi hip hop, 80 BPM, dusty drums, mellow electric piano, vinyl crackle, relaxed, instrumental",
+          "94:tags": "lo-fi hip hop, dusty drums, mellow electric piano, vinyl crackle, warm bass, relaxed, instrumental",
+          "94:bpm": 80,
+          "94:keyscale": "F major",
+          "94:language": "en",
           "94:lyrics": "[Instrumental]"
         },
         {
-          "94:tags": "alternative rock, 130 BPM, distorted guitars, driving drums, energetic male vocals, anthemic chorus",
-          "94:lyrics": "[Verse]\nWoke up in a burning town\nEvery bridge is falling down\n[Chorus]\nRaise your hands, we won't break\nHold the line for all our sake"
+          "94:tags": "alternative rock, distorted guitars, driving drums, energetic male vocals, anthemic chorus, stadium",
+          "94:bpm": 130,
+          "94:keyscale": "E minor",
+          "94:language": "en",
+          "94:lyrics": "[Verse]\nWoke up in a burning town\nEvery bridge is falling down\nNo one left to call my name\nStill I'm standing in the flame\n\n[Chorus]\nRaise your hands, we won't break\nHold the line for all our sake\nRaise your voice into the night\nWe will never lose this fight\n\n[Verse]\nAshes falling like the snow\nThere's still somewhere we can go\n\n[Chorus]\nRaise your hands, we won't break\nHold the line for all our sake"
         },
         {
-          "94:tags": "flamenco pop, 110 BPM, spanish guitar, palmas, cajón, passionate female vocals, spanish lyrics",
-          "94:lyrics": "[Verse]\nBajo la luna de Madrid\nte busqué y no te vi\n[Chorus]\nBaila conmigo esta noche\nque el tiempo se quede aquí"
+          "94:tags": "flamenco pop, spanish guitar, palmas, cajon, passionate female vocals, warm, mediterranean",
+          "94:bpm": 110,
+          "94:keyscale": "A minor",
+          "94:language": "es",
+          "94:lyrics": "[Verse]\nBajo la luna de Madrid\nte busqué y no te vi\nlas calles guardan tu canción\ny el eco de tu corazón\n\n[Chorus]\nBaila conmigo esta noche\nque el tiempo se quede aquí\nbaila conmigo esta noche\nque no hay mañana sin ti\n\n[Verse]\nGuitarra que llora por mí\npalmas que no saben mentir\n\n[Chorus]\nBaila conmigo esta noche\nque el tiempo se quede aquí"
         },
         {
-          "94:tags": "epic orchestral trailer music, 90 BPM, huge drums, brass, choir, rising tension, instrumental",
+          "94:tags": "epic orchestral trailer music, huge drums, brass, strings, choir, rising tension, cinematic, instrumental",
+          "94:bpm": 90,
+          "94:keyscale": "D minor",
+          "94:language": "en",
           "94:lyrics": "[Instrumental]"
         },
         {
-          "94:tags": "reggaeton, 95 BPM, dembow rhythm, deep 808, catchy synth lead, latin male vocals, party",
-          "94:lyrics": "[Verse]\nLa ciudad se enciende ya\nnadie se quiere ir pa' casa\n[Chorus]\nDale, dale, que suene más\nesta noche no se acaba"
+          "94:tags": "reggaeton, dembow rhythm, deep 808, catchy synth lead, latin male vocals, party, urban",
+          "94:bpm": 95,
+          "94:keyscale": "C# minor",
+          "94:language": "es",
+          "94:lyrics": "[Verse]\nLa ciudad se enciende ya\nnadie se quiere ir pa' casa\nel bajo suena en la pared\ny tú bailando sin saber\n\n[Chorus]\nDale, dale, que suene más\nesta noche no se acaba\ndale, dale, no pares ya\nque la fiesta no se apaga\n\n[Verse]\nLuces rojas, humo y calor\ntodo el mundo pide otra más\n\n[Chorus]\nDale, dale, que suene más\nesta noche no se acaba"
         },
         {
-          "94:tags": "dark ambient horror soundtrack, 70 BPM, low drones, dissonant strings, music box, whispers, unsettling, instrumental",
+          "94:tags": "dark ambient horror soundtrack, low drones, dissonant strings, music box, whispers, unsettling, instrumental",
+          "94:bpm": 70,
+          "94:keyscale": "B minor",
+          "94:language": "en",
           "94:lyrics": "[Instrumental]"
         }
       ]
