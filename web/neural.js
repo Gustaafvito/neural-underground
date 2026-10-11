@@ -63,6 +63,7 @@ function welcomeVoice(m, force = false) {
   a.play().then(() => duck(true))
     .catch(() => { if (voiceEl === a) voiceEl = null; });
 }
+function stopVoice() { if (voiceEl) { voiceEl.pause(); voiceEl.onerror?.(); } }
 function voiceButton() {
   const b = btn(voiceOff() ? '🔇 Voz' : '🗣 Voz', () => {
     try { localStorage.setItem('nu-voz', voiceOff() ? '1' : '0'); } catch {}
@@ -180,7 +181,7 @@ async function launch() {
   }catch(e){console.error(e);alert(`Neural: ${e.message}`);}
 }
 function renderHome() {
-  root.hidden=false;place();body.replaceChildren();if(!loading&&!submitting&&!transferring)message('El Nexo está listo.');playMusic('tema_neural.mp3',0.35,true);
+  root.hidden=false;place();body.replaceChildren();stopVoice();if(!loading&&!submitting&&!transferring)message('El Nexo está listo.');playMusic('tema_neural.mp3',0.35,true);
   body.append(el('div',{class:'nu-hero'},el('div',{class:'nu-eyebrow'},`EL NEXO · ${catalog.modules.length} ESPECIALISTAS`),el('h1',{},'NEURAL ',el('span',{},'UNDERGROUND')),el('p',{},'Tu laboratorio bajo la ciudad. Analiza, transforma y conecta tus resultados: elige un especialista para abrir sus herramientas.'),catalog.themeSong?el('div',{class:'nu-song'},`♪ «${catalog.themeSong}»`):'',el('i',{class:'nu-line'})));
   const grid=el('div',{class:'nu-grid'});
   for(const m of catalog.modules)grid.append(el('button',{class:'nu-card',type:'button',title:`Abrir ${m.title}`,onclick:()=>{coverMode=true;openModule(m);}},el('div',{class:'nu-card-art'},art(m),el('span',{class:'nu-num'},String(m.index).padStart(2,'0'))),el('div',{class:'nu-card-copy'},el('div',{class:'nu-card-tag'},'Acceso al módulo'),el('h2',{},m.title),el('p',{},m.subtitle))));
@@ -358,9 +359,9 @@ function renderCover(m){
 }
 function renderModule() {
   if(!current)return;const m=current;body.replaceChildren();
-  if(coverMode){playMusic(`portada_${m.id}.mp3`,0.6,false);renderCover(m);return;}
+  if(coverMode){stopVoice();playMusic(`portada_${m.id}.mp3`,0.6,false);renderCover(m);return;}
   playMusic(`ambiente_${m.id}.mp3`,0.2,true);welcomeVoice(m);
-  body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),btn('🗣 Escuchar presentación',()=>{if(voiceEl){voiceEl.pause();voiceEl.onerror?.();}welcomeVoice(m,true);}))));
+  body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),btn('🗣 Escuchar presentación',()=>{stopVoice();welcomeVoice(m,true);}))));
   const layout=el('div',{class:'nu-workspace'}),left=el('div',{class:'nu-controls'}),right=el('section',{class:'nu-result-area',id:'nu-result-area'});
   for(const i of m.inputs)left.append(uploadControl(i,m));
   moduleTools(left,m);
@@ -557,7 +558,7 @@ app.registerExtension({
     document.body.append(el('button',{id:'nu-launch',type:'button',onclick:launch},'◈ NEURAL'));
     // viendo los nodos de un módulo: botón para volver a él (como «Volver a la habitación» en La Casa Maldita)
     const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:()=>{coverMode=false;launch();}});document.body.append(back);
-    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);if(root?.hidden&&voiceEl){voiceEl.pause();voiceEl.onerror?.();}const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
+    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);if(root?.hidden)stopVoice();const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
     events();
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
   },
