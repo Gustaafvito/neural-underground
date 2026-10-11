@@ -17,11 +17,11 @@ const busyInputs = new Set();
 let ziLoras = null, ziLoading = false, ziAviso = false;
 let coverMode = false;
 // ── Música: tema de El Nexo en bucle; portada_<id>.mp3 al ver la portada de un especialista; silencio dentro del módulo
-let musicEl = null, musicWant = null, musicFade = null;
+let musicEl = null, musicWant = null;
 const musicOff = () => { try { return localStorage.getItem('nu-musica') === '0'; } catch { return false; } };
-function fadeTo(a, vol, ms, done) {
-  clearInterval(musicFade); const from = a.volume, t0 = performance.now();
-  musicFade = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); a.volume = from + (vol - from) * k; if (k >= 1) { clearInterval(musicFade); done?.(); } }, 40);
+function fadeTo(a, vol, ms, done) {   // cada audio con su propio fundido: agachar la música no cancela el cambio de canción
+  clearInterval(a._fade); const from = a.volume, t0 = performance.now();
+  a._fade = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); a.volume = from + (vol - from) * k; if (k >= 1) { clearInterval(a._fade); done?.(); } }, 40);
 }
 function playMusic(file, vol = 0.35, loop = true) {
   musicWant = file ? { file, vol, loop } : null;
@@ -31,13 +31,15 @@ function playMusic(file, vol = 0.35, loop = true) {
   const start = () => {
     musicEl = new Audio(url); musicEl.loop = loop; musicEl.volume = 0;
     musicEl.onerror = () => {};                 // sin archivo (p. ej. portada aún no hecha): silencio
-    musicEl.play().then(() => fadeTo(musicEl, vol, 900)).catch(e => {
+    const me = musicEl;
+    me.play().then(() => fadeTo(me, voiceEl ? Math.min(0.06, vol) : vol, 900)).catch(e => {
       if (e?.name !== 'NotAllowedError') return;  // el navegador aún no deja sonar: se reintenta con el primer clic
       const retry = () => { document.removeEventListener('pointerdown', retry); if (musicWant?.file === file) playMusic(file, vol, loop); };
       document.addEventListener('pointerdown', retry, { once: true });
     });
   };
-  if (musicEl && !musicEl.paused) { const old = musicEl; fadeTo(old, 0, 500, () => { old.pause(); start(); }); } else start();
+  if (musicEl && !musicEl.paused) { const old = musicEl; fadeTo(old, 0, 700, () => old.pause()); }   // fundido cruzado
+  start();
 }
 function musicButton() {
   const b = btn(musicOff() ? '🔇 Música' : '🔊 Música', () => {
@@ -50,20 +52,22 @@ function musicButton() {
 // ── Voz de bienvenida de cada especialista (audio/voz_<id>.mp3, ElevenLabs): solo la primera vez; agacha la música
 let voiceEl = null;
 const voiceOff = () => { try { return localStorage.getItem('nu-voz') === '0'; } catch { return false; } };
-function heard() { try { return new Set(JSON.parse(localStorage.getItem('nu-voz-oidas') || '[]')); } catch { return new Set(); } }
+function heard() { try { return new Set(JSON.parse(localStorage.getItem('nu-voz-oidas2') || '[]')); } catch { return new Set(); } }
 function welcomeVoice(m, force = false) {
-  if (voiceOff() || (!force && heard().has(m.id)) || voiceEl) return;
+  if ((!force && (voiceOff() || heard().has(m.id))) || voiceEl) return;
   const a = new Audio(new URL(`audio/voz_${m.id}.mp3`, BASE).href); voiceEl = a;
   const duck = on => { if (musicEl && !musicEl.paused && musicWant) fadeTo(musicEl, on ? Math.min(0.06, musicWant.vol) : musicWant.vol, on ? 300 : 900); };
-  a.onended = a.onerror = () => { if (voiceEl === a) voiceEl = null; duck(false); };
-  a.play().then(() => { duck(true); try { const h = heard(); h.add(m.id); localStorage.setItem('nu-voz-oidas', JSON.stringify([...h])); } catch {} })
+  const done = () => { if (voiceEl === a) voiceEl = null; duck(false); };
+  a.onerror = done;
+  a.onended = () => { done(); try { const h = heard(); h.add(m.id); localStorage.setItem('nu-voz-oidas2', JSON.stringify([...h])); } catch {} };
+  a.play().then(() => duck(true))
     .catch(() => { if (voiceEl === a) voiceEl = null; });
 }
 function voiceButton() {
   const b = btn(voiceOff() ? '🔇 Voz' : '🗣 Voz', () => {
     try { localStorage.setItem('nu-voz', voiceOff() ? '1' : '0'); } catch {}
     b.textContent = voiceOff() ? '🔇 Voz' : '🗣 Voz';
-    if (voiceOff() && voiceEl) { voiceEl.pause(); voiceEl.onended?.(); }
+    if (voiceOff() && voiceEl) { voiceEl.pause(); voiceEl.onerror?.(); }
   });
   b.title = 'Voz de bienvenida de cada especialista (la primera vez que entras)'; return b;
 }
@@ -354,7 +358,7 @@ function renderModule() {
   if(!current)return;const m=current;body.replaceChildren();
   if(coverMode){playMusic(`portada_${m.id}.mp3`,0.6,false);renderCover(m);return;}
   playMusic(`ambiente_${m.id}.mp3`,0.2,true);welcomeVoice(m);
-  body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description))));
+  body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),btn('🗣 Escuchar presentación',()=>{if(voiceEl){voiceEl.pause();voiceEl.onerror?.();}welcomeVoice(m,true);}))));
   const layout=el('div',{class:'nu-workspace'}),left=el('div',{class:'nu-controls'}),right=el('section',{class:'nu-result-area',id:'nu-result-area'});
   for(const i of m.inputs)left.append(uploadControl(i,m));
   moduleTools(left,m);
@@ -551,7 +555,7 @@ app.registerExtension({
     document.body.append(el('button',{id:'nu-launch',type:'button',onclick:launch},'◈ NEURAL'));
     // viendo los nodos de un módulo: botón para volver a él (como «Volver a la habitación» en La Casa Maldita)
     const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:()=>{coverMode=false;launch();}});document.body.append(back);
-    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);if(root?.hidden&&voiceEl){voiceEl.pause();voiceEl.onended?.();}const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
+    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);if(root?.hidden&&voiceEl){voiceEl.pause();voiceEl.onerror?.();}const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
     events();
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
   },
