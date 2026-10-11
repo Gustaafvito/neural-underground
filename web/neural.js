@@ -49,17 +49,16 @@ function musicButton() {
   });
   b.title = 'Música de El Nexo, las portadas y los módulos'; return b;
 }
-// ── Voz de bienvenida de cada especialista (audio/voz_<id>.mp3, ElevenLabs): solo la primera vez; agacha la música
-let voiceEl = null;
+// ── Voz de bienvenida de cada especialista (audio/voz_<id>.mp3, ElevenLabs): cada vez que entras desde la portada; agacha la música
+let voiceEl = null, enteredFromCover = false;
 const voiceOff = () => { try { return localStorage.getItem('nu-voz') === '0'; } catch { return false; } };
-function heard() { try { return new Set(JSON.parse(localStorage.getItem('nu-voz-oidas2') || '[]')); } catch { return new Set(); } }
 function welcomeVoice(m, force = false) {
-  if ((!force && (voiceOff() || heard().has(m.id))) || voiceEl) return;
+  if ((!force && voiceOff()) || voiceEl) return;
   const a = new Audio(new URL(`audio/voz_${m.id}.mp3`, BASE).href); voiceEl = a;
   const duck = on => { if (musicEl && !musicEl.paused && musicWant) fadeTo(musicEl, on ? Math.min(0.06, musicWant.vol) : musicWant.vol, on ? 300 : 900); };
   const done = () => { if (voiceEl === a) voiceEl = null; duck(false); };
   a.onerror = done;
-  a.onended = () => { done(); try { const h = heard(); h.add(m.id); localStorage.setItem('nu-voz-oidas2', JSON.stringify([...h])); } catch {} };
+  a.onended = done;
   a.play().then(() => duck(true))
     .catch(() => { if (voiceEl === a) voiceEl = null; });
 }
@@ -350,7 +349,7 @@ function refreshSummary(){
   else{box.hidden=true;return;}box.hidden=false;
 }
 function renderCover(m){
-  const enter=()=>{coverMode=false;renderModule();};
+  const enter=()=>{coverMode=false;enteredFromCover=true;renderModule();};
   const card=el('div',{class:'nu-cover',role:'button',tabindex:'0',title:`Entrar en ${m.title}`,onclick:enter,onkeydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();enter();}}},
     el('div',{class:'nu-cover-art'},art(m),el('div',{class:'nu-cover-scan'})),
     el('div',{class:'nu-cover-info'},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),
@@ -360,7 +359,7 @@ function renderCover(m){
 function renderModule() {
   if(!current)return;const m=current;body.replaceChildren();
   if(coverMode){stopVoice();playMusic(`portada_${m.id}.mp3`,0.6,false);renderCover(m);return;}
-  playMusic(`ambiente_${m.id}.mp3`,0.2,true);welcomeVoice(m);
+  playMusic(`ambiente_${m.id}.mp3`,0.2,true);if(enteredFromCover){enteredFromCover=false;welcomeVoice(m);}
   body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description),btn('🗣 Escuchar presentación',()=>{stopVoice();welcomeVoice(m,true);}))));
   const layout=el('div',{class:'nu-workspace'}),left=el('div',{class:'nu-controls'}),right=el('section',{class:'nu-result-area',id:'nu-result-area'});
   for(const i of m.inputs)left.append(uploadControl(i,m));
