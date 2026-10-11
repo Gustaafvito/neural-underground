@@ -180,13 +180,15 @@ async function launch() {
   }catch(e){console.error(e);alert(`Neural: ${e.message}`);}
 }
 function renderHome() {
-  root.hidden=false;place();body.replaceChildren();playMusic('tema_neural.mp3',0.35,true);
+  root.hidden=false;place();body.replaceChildren();if(!loading&&!submitting&&!transferring)message('El Nexo está listo.');playMusic('tema_neural.mp3',0.35,true);
   body.append(el('div',{class:'nu-hero'},el('div',{class:'nu-eyebrow'},`EL NEXO · ${catalog.modules.length} ESPECIALISTAS`),el('h1',{},'NEURAL ',el('span',{},'UNDERGROUND')),el('p',{},'Tu laboratorio bajo la ciudad. Analiza, transforma y conecta tus resultados: elige un especialista para abrir sus herramientas.'),catalog.themeSong?el('div',{class:'nu-song'},`♪ «${catalog.themeSong}»`):'',el('i',{class:'nu-line'})));
   const grid=el('div',{class:'nu-grid'});
   for(const m of catalog.modules)grid.append(el('button',{class:'nu-card',type:'button',title:`Abrir ${m.title}`,onclick:()=>{coverMode=true;openModule(m);}},el('div',{class:'nu-card-art'},art(m),el('span',{class:'nu-num'},String(m.index).padStart(2,'0'))),el('div',{class:'nu-card-copy'},el('div',{class:'nu-card-tag'},'Acceso al módulo'),el('h2',{},m.title),el('p',{},m.subtitle))));
   body.append(grid,el('p',{class:'nu-note',style:{marginTop:'22px'}},'Los modelos se ejecutan en tu ComfyUI. Cada módulo comprueba sus nodos y modelos; el pack no instala ni descarga dependencias automáticamente.'));
   renderJobs(body);
 }
+// si una carga se queda colgada (red, diálogo del lienzo…), se suelta a los 45 s para que el panel no quede bloqueado
+const withTimeout=(p,ms=45000,what='la carga')=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error(`Se ha tardado demasiado en ${what}. Inténtalo otra vez.`)),ms))]);
 async function openModule(m, transfer=null) {
   if(loading || submitting || busyInputs.size || (transferring&&!transfer)){message('Espera a que termine la carga actual.',true);return;}
   loading=true;message(`Abriendo ${m.title}…`);
@@ -194,8 +196,8 @@ async function openModule(m, transfer=null) {
     const oldID=graphID();if(oldID && findModule(oldID))snapshots.set(oldID,app.graph.serialize());
     else if(!externalGraph)externalGraph=app.graph.serialize();
     let snap=snapshots.get(m.id);if(snap&&staleGraph(snap,m)){snapshots.delete(m.id);snap=null;}
-    const g=structuredClone(snap||await fetchJSON(new URL(`workflows/${m.file}`,BASE)));
-    const info=await objectInfo();
+    const g=structuredClone(snap||await withTimeout(fetchJSON(new URL(`workflows/${m.file}`,BASE)),45000,'leer el workflow'));
+    const info=await withTimeout(objectInfo(),45000,'consultar los nodos');
     for(const n of g.nodes){const schema=info[n.type]?.input||{},options=Object.values({...schema.required,...schema.optional}).flatMap(spec=>Array.isArray(spec[0])?spec[0]:spec[1]?.options||[]);
       // modelos: si no está en la ruta exacta, se busca por nombre de archivo en cualquier subcarpeta (p. ej. loras/ZImage/…)
       const base=v=>v.replaceAll('\\','/').split('/').pop();
@@ -205,7 +207,7 @@ async function openModule(m, transfer=null) {
         if(!/\.(safetensors|gguf|ckpt|pt|pth|bin|onnx|sft)$/i.test(value))return value;
         return options.find(o=>typeof o==='string'&&base(o)===base(value))||value;});
     }
-    opening=true;await app.loadGraphData(g,true,true,m.file.replace('.json',''));opening=false;
+    opening=true;await withTimeout(app.loadGraphData(g,true,true,m.file.replace('.json','')),45000,'abrir el workflow');opening=false;
     current=m;
     if(transfer?.text!=null){const c=m.controls.find(c=>c.kind==='text'&&!c.advanced);if(!c)throw new Error('Este módulo no tiene un prompt de destino.');for(const id of c.nodes)setWidget(id,c.widget,transfer.text,c.fallbackIndex);}
     else if(transfer){const dest=m.inputs[transfer.slot||0];if(!dest)throw new Error('El destino no admite esta entrada.');setFile(dest,transfer.name);}
