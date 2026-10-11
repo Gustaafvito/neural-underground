@@ -43,7 +43,8 @@
         "Node name for S&R": "RemoveBackground",
         "cnr_id": "comfy-core",
         "ver": "0.33.4"
-      }
+      },
+      "title": "Quitar fondo"
     },
     {
       "id": 14,
@@ -94,7 +95,8 @@
       },
       "widgets_values": [
         "birefnet.safetensors"
-      ]
+      ],
+      "title": "Modelo de recorte"
     },
     {
       "id": 15,
@@ -132,7 +134,8 @@
         "Node name for S&R": "InvertMask",
         "cnr_id": "comfy-core",
         "ver": "0.33.4"
-      }
+      },
+      "title": "Invertir máscara"
     },
     {
       "id": 16,
@@ -177,7 +180,8 @@
         "Node name for S&R": "JoinImageWithAlpha",
         "cnr_id": "comfy-core",
         "ver": "0.33.4"
-      }
+      },
+      "title": "Unir imagen y transparencia"
     },
     {
       "id": 17,
@@ -238,7 +242,8 @@
       "widgets_values": [
         "example.png",
         "image"
-      ]
+      ],
+      "title": "Cargar imagen"
     },
     {
       "id": 18,
@@ -274,7 +279,8 @@
         "Node name for S&R": "PreviewImage",
         "cnr_id": "comfy-core",
         "ver": "0.33.4"
-      }
+      },
+      "title": "Vista previa"
     },
     {
       "id": 20,
@@ -310,7 +316,8 @@
         "Node name for S&R": "MaskPreview",
         "cnr_id": "comfy-core",
         "ver": "0.33.4"
-      }
+      },
+      "title": "Vista de la máscara"
     },
     {
       "id": 21,

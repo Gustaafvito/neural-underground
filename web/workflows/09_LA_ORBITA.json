@@ -64,7 +64,8 @@
       "widgets_values": [
         "example.png",
         "image"
-      ]
+      ],
+      "title": "Cargar imagen"
     },
     {
       "id": 98,
@@ -195,7 +196,8 @@
         384,
         49,
         1
-      ]
+      ],
+      "title": "Imagen a vídeo con cámara"
     },
     {
       "id": 99,
@@ -239,14 +241,14 @@
           ]
         }
       ],
-      "title": "CLIP Text Encode (Negative Prompt)",
+      "title": "Prompt negativo",
       "properties": {
         "Node name for S&R": "CLIPTextEncode",
         "cnr_id": "comfy-core",
         "ver": "0.3.50"
       },
       "widgets_values": [
-        "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走"
+        "oversaturated colors, overexposed, static, blurry details, subtitles, style, artwork, painting, still frame, overall grayish, worst quality, low quality, JPEG artifacts, ugly, mutilated, extra fingers, poorly drawn hands, poorly drawn face, deformed, disfigured, malformed limbs, fused fingers, motionless frame, cluttered background, three legs, many people in the background, walking backwards"
       ],
       "color": "#223",
       "bgcolor": "#335"
@@ -311,7 +313,8 @@
       "widgets_values": [
         "wan2.2_fun_camera_high_noise_14B_fp8_scaled.safetensors",
         "default"
-      ]
+      ],
+      "title": "Modelo (ruido alto)"
     },
     {
       "id": 95,
@@ -373,7 +376,8 @@
       "widgets_values": [
         "wan2.2_fun_camera_low_noise_14B_fp8_scaled.safetensors",
         "default"
-      ]
+      ],
+      "title": "Modelo (ruido bajo)"
     },
     {
       "id": 91,
@@ -426,7 +430,8 @@
       },
       "widgets_values": [
         "wan_2.1_vae.safetensors"
-      ]
+      ],
+      "title": "VAE"
     },
     {
       "id": 96,
@@ -500,7 +505,8 @@
         "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
         "wan",
         "default"
-      ]
+      ],
+      "title": "Codificador de texto"
     },
     {
       "id": 108,
@@ -653,7 +659,8 @@
         0.5,
         0.5,
         0.5
-      ]
+      ],
+      "title": "Movimiento de cámara"
     },
     {
       "id": 107,
@@ -697,7 +704,7 @@
           ]
         }
       ],
-      "title": "CLIP Text Encode (Positive Prompt)",
+      "title": "Prompt positivo",
       "properties": {
         "Node name for S&R": "CLIPTextEncode",
         "cnr_id": "comfy-core",
@@ -752,7 +759,8 @@
         "Node name for S&R": "VAEDecode",
         "cnr_id": "comfy-core",
         "ver": "0.3.50"
-      }
+      },
+      "title": "Decodificar"
     },
     {
       "id": 105,
@@ -820,7 +828,8 @@
       "widgets_values": [
         16,
         8
-      ]
+      ],
+      "title": "Crear vídeo"
     },
     {
       "id": 102,
@@ -969,7 +978,8 @@
         0,
         2,
         "enable"
-      ]
+      ],
+      "title": "Muestreador avanzado 1"
     },
     {
       "id": 103,
@@ -1118,7 +1128,8 @@
         2,
         10000,
         "disable"
-      ]
+      ],
+      "title": "Muestreador avanzado 2"
     },
     {
       "id": 101,
@@ -1169,7 +1180,8 @@
       },
       "widgets_values": [
         5
-      ]
+      ],
+      "title": "Ajuste de muestreo (shift) 2"
     },
     {
       "id": 100,
@@ -1220,7 +1232,8 @@
       },
       "widgets_values": [
         5
-      ]
+      ],
+      "title": "Ajuste de muestreo (shift) 1"
     },
     {
       "id": 106,
@@ -1288,7 +1301,8 @@
         "neural_underground/09_la_orbita/106",
         "auto",
         "auto"
-      ]
+      ],
+      "title": "Guardar vídeo"
     },
     {
       "id": 109,

@@ -49,7 +49,8 @@
       },
       "widgets_values": [
         "film_net_fp16.safetensors"
-      ]
+      ],
+      "title": "Modelo de interpolación"
     },
     {
       "id": 102,
@@ -105,7 +106,8 @@
       },
       "widgets_values": [
         2
-      ]
+      ],
+      "title": "Interpolar fotogramas"
     },
     {
       "id": 105,
@@ -173,7 +175,8 @@
       "widgets_values": [
         30,
         8
-      ]
+      ],
+      "title": "Crear vídeo"
     },
     {
       "id": 109,
@@ -276,7 +279,8 @@
       },
       "widgets_values": [
         true
-      ]
+      ],
+      "title": "Interruptor"
     },
     {
       "id": 113,
@@ -382,7 +386,8 @@
         "Node name for S&R": "GetVideoComponents",
         "cnr_id": "comfy-core",
         "ver": "0.19.3"
-      }
+      },
+      "title": "Separar imagen y audio del vídeo"
     },
     {
       "id": 111,
@@ -461,7 +466,8 @@
       },
       "widgets_values": [
         "min(abs(b), 16) * a"
-      ]
+      ],
+      "title": "Cálculo"
     },
     {
       "id": 4,
@@ -515,7 +521,8 @@
       "widgets_values": [
         "",
         "image"
-      ]
+      ],
+      "title": "Cargar vídeo"
     },
     {
       "id": 7,
@@ -583,7 +590,8 @@
         "neural_underground/10_el_cronista/7",
         "auto",
         "auto"
-      ]
+      ],
+      "title": "Guardar vídeo"
     }
   ],
   "links": [
