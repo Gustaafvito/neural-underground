@@ -1,6 +1,6 @@
 [project]
 name = "neural-underground"
-version = "2.3.0"
+version = "1.0.0"
 description = "12 workflows de ComfyUI en un solo panel cyberpunk: imagen, edición, vídeo, interpolación y música, sin tocar nodos · 12 ComfyUI workflows in one cyberpunk panel: image, editing, video, interpolation and music, no node wiring."
 license = { file = "LICENSE" }
 requires-python = ">=3.10"

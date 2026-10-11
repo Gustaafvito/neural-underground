@@ -1,4 +1,4 @@
-# Neural Underground · licencias (4-oct-2026)
+# Neural Underground · licencias (11-oct-2026)
 
 Revisado contra las fichas de Hugging Face y Civitai y los textos de licencia originales. No es asesoría legal.
 
@@ -28,6 +28,13 @@ evaluación»; no cubre ni el uso creativo personal. Qwen-Image-Edit-2511 y Qwen
 
 Nota: el codificador `qwen3vl_8b_int8_convrot` de El Escáner se descarga del repo de Comfy-Org de Qwen Image 2.1, pero es
 Qwen3-VL 8B (Apache 2.0), no el modelo de imagen.
+
+## Audio del panel (incluido en el pack)
+
+| Qué | Cómo se hizo | Estado |
+|---|---|---|
+| Tema de El Nexo, 12 canciones de portada y 12 ambientes (`web/audio`) | Generados por el autor con ACE-Step 1.5 XL (MIT / Apache 2.0) | ✅ |
+| 12 voces de bienvenida (`web/audio/voz_*.mp3`) | Creadas por el autor con ElevenLabs, plan Starter (licencia comercial) | ✅ |
 
 ## Nodos
 

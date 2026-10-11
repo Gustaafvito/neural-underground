@@ -25,6 +25,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 | `cyberNoirDetective.safetensors` | `loras` | 0.1 GB | LoRA del autor · opcional, puedes poner cualquier LoRA de Z-Image |
 | `REDZ15_DetailDaemonZ_lora_v1.1.safetensors` | `loras` | 0.1 GB | [⬇](https://huggingface.co/RunningHubAI/rh-detaildeamonz-sliderlora-for-zimageturbo-redz1.5-lora/resolve/main/REDZ15_DetailDaemonZ_lora_v1.1.safetensors) |
 | `qwen_3_4b.safetensors` | `text_encoders` | 8.0 GB | [⬇](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
 | `ae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors) |
 
 ### 03 · Los Sectores
@@ -67,6 +68,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 |---|---|---|---|
 | `z_image_turbo_bf16.safetensors` | `diffusion_models` | 12.3 GB | [⬇](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors) |
 | `qwen_3_4b.safetensors` | `text_encoders` | 8.0 GB | [⬇](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
 | `ae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors) |
 
 ### 08 · El Puente
@@ -78,6 +80,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 | `wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors` | `loras` | 1.2 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors) |
 | `wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors` | `loras` | 1.2 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors) |
 | `umt5_xxl_fp8_e4m3fn_scaled.safetensors` | `text_encoders` | 6.7 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
 | `wan_2.1_vae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors) |
 
 ### 09 · La Órbita
@@ -89,6 +92,7 @@ La licencia de cada modelo está en [LICENCIAS.md](LICENCIAS.md).
 | `wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors` | `loras` | 1.2 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors) |
 | `wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors` | `loras` | 1.2 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors) |
 | `umt5_xxl_fp8_e4m3fn_scaled.safetensors` | `text_encoders` | 6.7 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors) |
+| `qwen3vl_8b_int8_convrot.safetensors` | `text_encoders` | 9.4 GB | [⬇](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) |
 | `wan_2.1_vae.safetensors` | `vae` | 0.3 GB | [⬇](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors) |
 
 ### 10 · El Cronista

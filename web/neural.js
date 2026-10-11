@@ -2,7 +2,7 @@ import { app } from '../../scripts/app.js';
 import { api } from '../../scripts/api.js';
 
 const BASE = new URL('.', import.meta.url);
-const VERSION = '2.3.0';
+const VERSION = '1.0.0';
 let catalog, root, body, statusText, statusBar, progress, current = null, opening = false, loading = false;
 let externalGraph = null, infoCache = null, submitting = false, activePrompt = null, transferring = false, polling = false;
 const mediaInfo = new Map();

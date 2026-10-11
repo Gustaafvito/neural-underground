@@ -53,6 +53,16 @@ El Implante, edita con La Mutación y anímala con La Órbita… sin descargar n
 - Elige un módulo, sube tu imagen o tu vídeo y ajusta sus controles (los prompts funcionan mejor en inglés).
 - Ejecuta. Los resultados aparecen en el panel con su botón **«Enviar a…»**.
 - **⌬ Ver nodos** muestra el workflow de ComfyUI que hay debajo; para volver, pulsa **◈ Volver a …** (abajo en el centro).
+- **🎲 Sorpréndeme** rellena el módulo con una idea preparada, para probar sin pensar el prompt.
+- **Mejorar con IA** (en Los Sectores, El Implante, El Doble, El Puente y La Órbita): Qwen3-VL 8B reescribe tu texto en un
+  prompt detallado; en los de vídeo, además, mira tu foto de inicio. Es opcional: apagado no carga el modelo, y el prompt
+  usado sale en los resultados. `qwen3vl_8b_int8_convrot` solo hace falta para esto y para El Escáner.
+
+## Música y voces
+
+Cada especialista tiene su **canción de portada**, su **ambiente** mientras trabajas y una **voz de bienvenida** al entrar
+en su módulo; El Nexo suena con el tema **«Señal Subterránea»**. La música baja sola cuando habla un especialista.
+Los botones **🔊 Música** y **🗣 Voz** de la cabecera las apagan, y **🗣 Escuchar presentación** repite la voz.
 
 **Tus LoRAs en El Implante:** pon tus LoRAs de Z-Image en `ComfyUI/models/loras` (vale cualquier subcarpeta) y recarga.
 El panel solo enseña los de Z-Image, y si un LoRA trae su palabra clave, la añade sola a la descripción al elegirlo.
@@ -66,6 +76,8 @@ Los workflows también aparecen en el navegador de plantillas de ComfyUI, en la 
 - **Modelos:** cada uno tiene la suya; todos los que usa Neural permiten uso libre (Apache 2.0 / MIT). Los descargas tú desde
   su página oficial. Detalle en [LICENCIAS.md](LICENCIAS.md).
 - Las portadas de los módulos se han **generado con IA**.
+- **Música:** generada por el autor con ACE-Step 1.5 XL. **Voces:** creadas por el autor con ElevenLabs (plan con licencia comercial).
+  Van incluidas en el pack bajo la misma licencia del proyecto.
 
 ## Créditos
 
