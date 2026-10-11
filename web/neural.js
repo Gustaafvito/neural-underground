@@ -45,7 +45,27 @@ function musicButton() {
     b.textContent = musicOff() ? '🔇 Música' : '🔊 Música';
     const w = musicWant; if (musicOff()) { if (musicEl) fadeTo(musicEl, 0, 400, () => musicEl.pause()); } else if (w) { musicWant = null; playMusic(w.file, w.vol, w.loop); }
   });
-  b.title = 'Música de El Nexo y de las portadas'; return b;
+  b.title = 'Música de El Nexo, las portadas y los módulos'; return b;
+}
+// ── Voz de bienvenida de cada especialista (audio/voz_<id>.mp3, ElevenLabs): solo la primera vez; agacha la música
+let voiceEl = null;
+const voiceOff = () => { try { return localStorage.getItem('nu-voz') === '0'; } catch { return false; } };
+function heard() { try { return new Set(JSON.parse(localStorage.getItem('nu-voz-oidas') || '[]')); } catch { return new Set(); } }
+function welcomeVoice(m, force = false) {
+  if (voiceOff() || (!force && heard().has(m.id)) || voiceEl) return;
+  const a = new Audio(new URL(`audio/voz_${m.id}.mp3`, BASE).href); voiceEl = a;
+  const duck = on => { if (musicEl && !musicEl.paused && musicWant) fadeTo(musicEl, on ? Math.min(0.06, musicWant.vol) : musicWant.vol, on ? 300 : 900); };
+  a.onended = a.onerror = () => { if (voiceEl === a) voiceEl = null; duck(false); };
+  a.play().then(() => { duck(true); try { const h = heard(); h.add(m.id); localStorage.setItem('nu-voz-oidas', JSON.stringify([...h])); } catch {} })
+    .catch(() => { if (voiceEl === a) voiceEl = null; });
+}
+function voiceButton() {
+  const b = btn(voiceOff() ? '🔇 Voz' : '🗣 Voz', () => {
+    try { localStorage.setItem('nu-voz', voiceOff() ? '1' : '0'); } catch {}
+    b.textContent = voiceOff() ? '🔇 Voz' : '🗣 Voz';
+    if (voiceOff() && voiceEl) { voiceEl.pause(); voiceEl.onended?.(); }
+  });
+  b.title = 'Voz de bienvenida de cada especialista (la primera vez que entras)'; return b;
 }
 // un grafo guardado (sesión anterior o pestaña abierta) está desfasado si es de otra versión o le falta algún nodo que usa el panel
 function staleGraph(g,m){if(!g?.nodes)return true;const v=g.extra?.neural_underground?.version;if(m.version&&v&&v!==m.version)return true;
@@ -145,7 +165,7 @@ function makeShell() {
   statusBar=el('footer',{class:'nu-status','aria-live':'polite'},progress,statusText,el('span',{class:'nu-ver'},`VERSIÓN ${VERSION}`));
   const home=()=>{remember();renderHome();};
   const top=el('header',{class:'nu-top'},el('div',{class:'nu-logo',title:'Volver a El Nexo',onclick:home},'◈ NEURAL',el('small',{},'UNDERGROUND')),
-    el('nav',{},btn('◈ El Nexo',home),btn('▣ Portada',()=>{if(current){coverMode=true;renderModule();}else message('Abre un módulo para ver su portada.',true);}),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;}),musicButton()));
+    el('nav',{},btn('◈ El Nexo',home),btn('▣ Portada',()=>{if(current){coverMode=true;renderModule();}else message('Abre un módulo para ver su portada.',true);}),btn('⌬ Ver nodos',()=>{remember();root.hidden=true;}),musicButton(),voiceButton()));
   root.append(el('div',{class:'nu-fx'}),el('div',{class:'nu-frame'},top,body,statusBar));
   document.body.append(root);
   window.addEventListener('resize',place);
@@ -333,7 +353,7 @@ function renderCover(m){
 function renderModule() {
   if(!current)return;const m=current;body.replaceChildren();
   if(coverMode){playMusic(`portada_${m.id}.mp3`,0.6,false);renderCover(m);return;}
-  playMusic(null);
+  playMusic(`ambiente_${m.id}.mp3`,0.2,true);welcomeVoice(m);
   body.append(el('div',{class:'nu-module-head'},art(m),el('div',{},el('div',{class:'nu-eyebrow'},`ESPECIALISTA ${String(m.index).padStart(2,'0')} / NEURAL UNDERGROUND`),el('h1',{},m.title),el('strong',{},m.subtitle),el('p',{},m.description))));
   const layout=el('div',{class:'nu-workspace'}),left=el('div',{class:'nu-controls'}),right=el('section',{class:'nu-result-area',id:'nu-result-area'});
   for(const i of m.inputs)left.append(uploadControl(i,m));
@@ -531,7 +551,7 @@ app.registerExtension({
     document.body.append(el('button',{id:'nu-launch',type:'button',onclick:launch},'◈ NEURAL'));
     // viendo los nodos de un módulo: botón para volver a él (como «Volver a la habitación» en La Casa Maldita)
     const back=el('button',{id:'nu-back',type:'button',hidden:true,onclick:()=>{coverMode=false;launch();}});document.body.append(back);
-    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
+    setInterval(()=>{if(root?.hidden&&musicWant)playMusic(null);if(root?.hidden&&voiceEl){voiceEl.pause();voiceEl.onended?.();}const m=catalog&&root?.hidden?findModule(graphID()):null;back.hidden=!m;if(m)back.textContent=`◈ Volver a ${m.title}`;},700);
     events();
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&root&&!root.hidden&&!document.querySelector('.nu-lightbox,.nu-full')){remember();root.hidden=true;}if(e.ctrlKey&&e.key==='Enter'&&root&&!root.hidden&&body.querySelector('#nu-result-area')){e.preventDefault();run();}});
   },
