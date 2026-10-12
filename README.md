@@ -1,5 +1,7 @@
 # ◈ Neural Underground
 
+[![Registro de ComfyUI](https://img.shields.io/badge/ComfyUI_Registry-neural--underground-6A4C93?style=for-the-badge)](https://registry.comfy.org/publishers/gustaafvito/nodes/neural-underground) [![Licencia GPL-3.0](https://img.shields.io/badge/licencia-GPL--3.0-blue?style=for-the-badge)](LICENSE)
+
 **12 workflows de ComfyUI en un solo panel de estilo cyberpunk.** Imagen, edición, vídeo, interpolación y música: eliges un
 módulo, rellenas cuatro controles claros y ejecutas, sin tocar un nodo. Y cuando quieras trastear, el workflow completo
 está debajo.
@@ -35,6 +37,12 @@ El Implante, edita con La Mutación y anímala con La Órbita… sin descargar n
 - **Disco:** unos 180 GB para los 12 módulos. Puedes instalar solo los que quieras.
 
 ## Instalación
+
+**Desde ComfyUI-Manager (recomendado):** Neural Underground está en el [registro oficial de ComfyUI](https://registry.comfy.org/publishers/gustaafvito/nodes/neural-underground). Abre *ComfyUI-Manager → Custom Nodes Manager*, busca **Neural Underground** e instálalo, o desde la terminal:
+```bash
+comfy node install neural-underground
+```
+Después sigue desde el paso 2. **A mano**, con git:
 
 1. **Copia Neural** dentro de `ComfyUI/custom_nodes`:
    ```bash
